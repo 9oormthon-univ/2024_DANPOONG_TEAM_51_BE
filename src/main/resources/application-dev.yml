@@ -20,11 +20,7 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     open-in-view: false
 
-jwt:
-  secretKey: ${JWT_SECRET_KEY}
-  access:
-    expiration: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
-    header: ${JWT_ACCESS_TOKEN_HEADER}
-  refresh:
-    expiration: ${JWT_REFRESH_TOKEN_EXPIRE_TIME}
-    header: ${JWT_REFRESH_TOKEN_HEADER}
+oauth:
+  kakao:
+    redirect-uri: ${KAKAO_REDIRECT_URL}
+    client-id: ${KAKAO_REST_API_KEY}
