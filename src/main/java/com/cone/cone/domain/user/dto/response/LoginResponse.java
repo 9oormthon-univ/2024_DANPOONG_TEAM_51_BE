@@ -6,4 +6,7 @@ import jakarta.validation.constraints.*;
 public record LoginResponse(
         @NotNull Role role
 ){
+    public static LoginResponse of(Role role) {
+        return new LoginResponse(role);
+    }
 }
