@@ -8,15 +8,12 @@ import static com.cone.cone.global.constant.OAuthConstant.KAKAO_USER_INFO_URL;
 
 import com.cone.cone.external.oauth.dto.*;
 import com.cone.cone.global.exception.*;
-import com.fasterxml.jackson.core.*;
-import com.fasterxml.jackson.databind.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
-import org.springframework.util.*;
 import org.springframework.web.client.*;
 
 @Component
