@@ -3,7 +3,7 @@ package com.cone.cone.domain.user.service;
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.domain.user.entity.*;
-import com.cone.cone.domain.user.respository.*;
+import com.cone.cone.domain.user.repository.*;
 import com.cone.cone.external.oauth.*;
 import com.cone.cone.external.oauth.dto.*;
 import java.util.*;

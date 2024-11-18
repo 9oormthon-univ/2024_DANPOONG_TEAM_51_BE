@@ -1,4 +1,4 @@
-package com.cone.cone.domain.user.respository;
+package com.cone.cone.domain.user.repository;
 
 import com.cone.cone.domain.user.entity.*;
 import java.util.*;
