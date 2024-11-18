@@ -18,7 +18,7 @@ public class AuthController implements AuthApi{
     private final AuthService authService;
 
     @PostMapping("/social/login")
-    public ResponseEntity<ResponseTemplate<LoginResponse>> login(final @Valid LoginRequest request) {
+    public ResponseEntity<ResponseTemplate<LoginResponse>> login(final @RequestBody @Valid LoginRequest request) {
         val response = authService.login(request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_SOCIAL_LOGIN, response));
     }
