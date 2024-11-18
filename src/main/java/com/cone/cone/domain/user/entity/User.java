@@ -13,4 +13,5 @@ public class User {
     @Column(nullable = false) @Enumerated(value = EnumType.STRING)
     private PlatformType platformType;
     private String platformId;
+    private Long openId;
 }
