@@ -1,9 +1,12 @@
 package com.cone.cone.external.oauth;
 
+import static com.cone.cone.external.code.ClientExceptionCode.INVALID_AUTH_ACCESS_TOKEN;
+import static com.cone.cone.external.code.ClientExceptionCode.INVALID_AUTH_CODE;
 import static com.cone.cone.global.constant.OAuthConstant.KAKAO_TOKEN_URL;
 import static com.cone.cone.global.constant.OAuthConstant.KAKAO_USER_INFO_URL;
 
 import com.cone.cone.external.oauth.dto.*;
+import com.cone.cone.global.exception.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
@@ -45,7 +48,7 @@ public class KakaoAuthService implements OAuthService{
         );
 
         if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new RuntimeException("Failed to get access token");
+            throw new CustomException(INVALID_AUTH_CODE);
         }
 
         return response.getBody().accessToken();
@@ -65,9 +68,8 @@ public class KakaoAuthService implements OAuthService{
         );
 
         if (!response.getStatusCode().is2xxSuccessful()) {
-            throw new RuntimeException("Failed to get user info");
+            throw new CustomException(INVALID_AUTH_ACCESS_TOKEN);
         }
-
 
         return getUserInfoByParsing(response.getBody());
     }
