@@ -2,26 +2,30 @@ package com.cone.cone.external.oauth;
 
 import static com.cone.cone.external.code.ClientExceptionCode.INVALID_AUTH_ACCESS_TOKEN;
 import static com.cone.cone.external.code.ClientExceptionCode.INVALID_AUTH_CODE;
+import static com.cone.cone.global.code.CommonExceptionCode.INTERNAL_SERVER_ERROR;
 import static com.cone.cone.global.constant.OAuthConstant.KAKAO_TOKEN_URL;
 import static com.cone.cone.global.constant.OAuthConstant.KAKAO_USER_INFO_URL;
 
 import com.cone.cone.external.oauth.dto.*;
 import com.cone.cone.global.exception.*;
+import com.fasterxml.jackson.core.*;
+import com.fasterxml.jackson.databind.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.*;
 import org.springframework.stereotype.*;
+import org.springframework.util.*;
 import org.springframework.web.client.*;
 
 @Component
 @RequiredArgsConstructor
 public class KakaoAuthService implements OAuthService{
     private final RestTemplate restTemplate;
-    @Value("oauth.kakao.clientId")
+    @Value("${oauth.kakao.client-id}")
     private String clientId;
-    @Value("oauth.kakao.redirect-uri")
+    @Value("${oauth.kakao.redirect-uri}")
     private String redirectUri;
 
     public UserInfoResponse getUserInfoByCode(String code) {
@@ -31,7 +35,7 @@ public class KakaoAuthService implements OAuthService{
 
     public String getAccessToken(String code) {
         HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
         String body = "grant_type=authorization_code" +
                 "&client_id=" + clientId +

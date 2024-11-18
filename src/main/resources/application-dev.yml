@@ -23,4 +23,4 @@ spring:
 oauth:
   kakao:
     redirect-uri: ${KAKAO_REDIRECT_URL}
-    clientId: ${KAKAO_REST_API_KEY}
+    client-id: ${KAKAO_REST_API_KEY}

@@ -7,7 +7,7 @@ import org.springframework.web.servlet.view.*;
 @RestController
 public class LoginTestController {
 
-    @Value("${oauth.kakao.clientId}")
+    @Value("${oauth.kakao.client-id}")
     private String clientId;
 
     @Value("${oauth.kakao.redirect-uri}")
