@@ -1,4 +1,4 @@
-package com.cone.cone.domain.room;
+package com.cone.cone.domain.room.entity;
 
 import com.cone.cone.domain.user.entity.Mentee;
 import com.cone.cone.domain.user.entity.Mentor;

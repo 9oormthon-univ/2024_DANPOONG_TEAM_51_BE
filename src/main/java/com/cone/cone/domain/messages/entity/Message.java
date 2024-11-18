@@ -1,6 +1,6 @@
-package com.cone.cone.domain.messages;
+package com.cone.cone.domain.messages.entity;
 
-import com.cone.cone.domain.room.Room;
+import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.user.entity.User;
 import jakarta.persistence.*;
 
