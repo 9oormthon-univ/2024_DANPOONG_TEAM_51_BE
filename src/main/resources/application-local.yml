@@ -26,11 +26,8 @@ spring:
       enabled: true
       path: /h2-console
 
-jwt:
-  secretKey: ${JWT_SECRET_KEY}
-  access:
-    expiration: ${JWT_ACCESS_TOKEN_EXPIRE_TIME}
-    header: ${JWT_ACCESS_TOKEN_HEADER}
-  refresh:
-    expiration: ${JWT_REFRESH_TOKEN_EXPIRE_TIME}
-    header: ${JWT_REFRESH_TOKEN_HEADER}
+oauth:
+  kakao:
+    redirect-uri: ${KAKAO_REDIRECT_URL}
+    clientId: ${KAKAO_REST_API_KEY}
+
