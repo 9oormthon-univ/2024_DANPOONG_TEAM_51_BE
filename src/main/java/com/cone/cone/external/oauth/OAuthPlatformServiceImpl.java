@@ -9,7 +9,7 @@ import org.springframework.stereotype.*;
 @RequiredArgsConstructor
 public class OAuthPlatformServiceImpl implements OAuthPlatformService {
     private final KakaoAuthService kakaoAuthService;
-    public UserInfo getUserInfo(PlatformType platformType, String code){
+    public UserInfoResponse getUserInfo(PlatformType platformType, String code){
         return switch(platformType) {
             case KAKAO -> kakaoAuthService.getUserInfoByCode(code);
         };
