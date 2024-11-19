@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "mentors")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Mentor {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +42,4 @@ public class Mentor {
     public String getKeyword() {
         return user.getKeyword();
     }
-
-
 }

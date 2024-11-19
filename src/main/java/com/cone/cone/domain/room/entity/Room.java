@@ -3,14 +3,12 @@ package com.cone.cone.domain.room.entity;
 import com.cone.cone.domain.user.entity.Mentee;
 import com.cone.cone.domain.user.entity.Mentor;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "rooms")
 @Getter
 public class Room {

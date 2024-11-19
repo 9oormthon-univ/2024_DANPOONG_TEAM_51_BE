@@ -8,6 +8,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "mentorings")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Mentoring extends BaseTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

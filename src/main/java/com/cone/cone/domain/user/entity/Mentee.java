@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Table(name = "mentees")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Mentee {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
