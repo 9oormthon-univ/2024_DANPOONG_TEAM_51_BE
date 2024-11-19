@@ -1,9 +1,11 @@
 package com.cone.cone.domain.user.entity;
 
 import jakarta.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "mentees")
+@Getter
 public class Mentee {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,4 +17,12 @@ public class Mentee {
     private String concernSummary;
     private String mentorPreference;
     private String concernDetail;
+
+    public String getUsername() {
+        return user.getUsername();
+    }
+
+    public String getProfileImgUrl() {
+        return user.getProfileImgUrl();
+    }
 }

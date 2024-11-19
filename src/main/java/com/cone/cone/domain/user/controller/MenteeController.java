@@ -2,6 +2,7 @@ package com.cone.cone.domain.user.controller;
 
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.service.RoomService;
+import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.global.response.ResponseTemplate;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
@@ -26,5 +27,10 @@ public class MenteeController implements MenteeApi {
     public ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(@PathVariable Long id) {
         final List<Room> rooms = roomService.getRoomsByMenteeId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
+    }
+
+
+    public ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(Long menteeId) {
+        return null;
     }
 }
