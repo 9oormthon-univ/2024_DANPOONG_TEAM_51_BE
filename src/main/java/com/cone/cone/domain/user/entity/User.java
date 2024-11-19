@@ -15,9 +15,12 @@ public class User {
     private Role role;
     @Column(nullable = false) @Enumerated(value = EnumType.STRING)
     private PlatformType platformType;
+    @Column(nullable = false)
     private String platformId;
     private String username;
     private String profileImgUrl;
+    @Column(nullable = false)
+    private String keyword;
 
     @Builder
     private User(Role role, PlatformType platformType, String platformId, String username, String profileImgUrl) {

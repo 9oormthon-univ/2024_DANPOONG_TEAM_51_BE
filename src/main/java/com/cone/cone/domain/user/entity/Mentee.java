@@ -30,4 +30,8 @@ public class Mentee {
     public String getProfileImgUrl() {
         return user.getProfileImgUrl();
     }
+
+    public String getKeyword() {
+        return user.getKeyword();
+    }
 }
