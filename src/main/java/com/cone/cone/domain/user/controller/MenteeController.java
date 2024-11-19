@@ -19,7 +19,7 @@ import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
 @RestController
 @RequestMapping("/mentees")
 @RequiredArgsConstructor
-public class MenteeController {
+public class MenteeController implements MenteeApi {
     private final RoomService roomService;
 
     @GetMapping("/{id}/rooms")
