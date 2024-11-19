@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.*;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class MenteeServiceImpl implements MenteeService{
-    private MenteeRepository menteeRepository;
+    private final MenteeRepository menteeRepository;
 
     public MenteeProfileResponse getMentorProfile(final Long menteeId) {
         val mentee = menteeRepository.findByIdOrThrow(menteeId);
