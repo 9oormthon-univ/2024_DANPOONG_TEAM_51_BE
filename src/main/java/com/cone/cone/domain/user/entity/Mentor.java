@@ -15,9 +15,6 @@ public class Mentor {
     private User user;
 
     @Column(nullable = false)
-    private String keyword;
-
-    @Column(nullable = false)
     private String resume;
 
     @Column(nullable = false)
@@ -30,6 +27,7 @@ public class Mentor {
     @Builder
     private Mentor(User user) {
         this.user = user;
+        this.auditStatus = AuditStatus.INREVIEW;
     }
 
     public String getUsername() {
@@ -38,6 +36,10 @@ public class Mentor {
 
     public String getProfileImgUrl() {
         return user.getProfileImgUrl();
+    }
+
+    public String getKeyword() {
+        return user.getKeyword();
     }
 
 
