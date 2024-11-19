@@ -1,4 +1,4 @@
-package com.cone.cone.domain.user.service;
+package com.cone.cone.domain.auth.service;
 
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
@@ -6,23 +6,27 @@ import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
 import com.cone.cone.external.oauth.*;
 import com.cone.cone.external.oauth.dto.*;
+import jakarta.servlet.http.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final OAuthPlatformService oAuthPlatformService;
     private final UserRepository userRepository;
+    private final SessionService sessionService;
 
-    public LoginResponse login(LoginRequest request) {
+    public RoleResponse login(HttpServletRequest httpServletRequest, LoginRequest request) {
         UserInfoResponse userInfo = oAuthPlatformService.getUserInfo(request.platformType(), request.code());
         Optional<User> existingUser = userRepository.findByPlatformId(userInfo.id());
 
         if (existingUser.isPresent()) {
             User user = existingUser.get();
-            return LoginResponse.of(user.getRole());
+            return RoleResponse.of(user.getRole());
         } else {
             User newUser = User.builder()
                     .role(Role.GUEST)
@@ -30,7 +34,15 @@ public class AuthServiceImpl implements AuthService {
                     .platformId(userInfo.id())
                     .build();
             userRepository.save(newUser);
-            return new LoginResponse(newUser.getRole());
+            sessionService.createSession(httpServletRequest, newUser.getId(), newUser.getRole());
+            return new RoleResponse(newUser.getRole());
         }
+    }
+
+    public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
+        val user = userRepository.findByIdOrThrow(userId);
+        user.changeRole(request.role());
+        sessionService.regenerateSession(httpServletRequest, userId, user.getRole());
+        return RoleResponse.of(user.getRole());
     }
 }

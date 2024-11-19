@@ -24,4 +24,8 @@ public class User {
         this.platformType = platformType;
         this.platformId = platformId;
     }
+
+    public void changeRole(final Role role) {
+        this.role = role;
+    }
 }
