@@ -10,8 +10,10 @@ import jakarta.servlet.http.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.*;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
     private final OAuthPlatformService oAuthPlatformService;
