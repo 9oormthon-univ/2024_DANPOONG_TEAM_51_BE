@@ -12,7 +12,10 @@ public enum CommonExceptionCode implements ExceptionCode {
     NOT_NULL_REQUEST_PARAM(HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다"),
 
     // 401 Unauthorized
-    AUTHENTICATION_REQUIRED(HttpStatus.UNAUTHORIZED, "권한이 없습니다"),
+    AUTHENTICATION_REQUIRED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"),
+
+    // 403 Forbidden
+    INVALID_AUTHORITY(HttpStatus.FORBIDDEN, "권한이 없습니다"),
 
     // 404 Not Found
     NOT_FOUND_PATH(HttpStatus.NOT_FOUND, "요청하신 경로를 찾을 수 없습니다"),

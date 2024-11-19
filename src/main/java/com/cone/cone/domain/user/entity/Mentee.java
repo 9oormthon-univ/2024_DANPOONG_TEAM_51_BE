@@ -9,11 +9,12 @@ import lombok.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 public class Mentee {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "user_id")
+    @OneToOne(fetch = FetchType.LAZY)
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     private String concernSummary;

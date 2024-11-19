@@ -26,6 +26,7 @@ public class AuthController implements AuthApi {
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_SOCIAL_LOGIN, response));
     }
 
+    @SessionAuth
     @PatchMapping("/onboarding")
     public ResponseEntity<ResponseTemplate<RoleResponse>> onboarding(HttpServletRequest httpServletRequest,
                                                                      final @SessionId Long userId,
