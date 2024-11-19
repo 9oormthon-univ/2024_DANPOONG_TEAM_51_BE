@@ -27,6 +27,7 @@ public class Mentor {
     @Builder
     private Mentor(User user) {
         this.user = user;
+        this.auditStatus = AuditStatus.INREVIEW;
     }
 
     public String getUsername() {
