@@ -24,10 +24,10 @@ public class SessionIdArgumentResolver implements HandlerMethodArgumentResolver 
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
         HttpSession session = webRequest.getNativeRequest(jakarta.servlet.http.HttpServletRequest.class).getSession(false);
         if (session != null) {
-            String sessionId = session.getId();
-            try {
-                return Long.parseLong(sessionId);
-            } catch (NumberFormatException e) {
+            Long userId = (Long) session.getAttribute("id");
+            if (userId != null) {
+                return userId;
+            } else {
                 throw new CustomException(AUTHENTICATION_REQUIRED);
             }
         }
