@@ -5,11 +5,12 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "mentees")
 public class Mentee {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @MapsId
+    @JoinColumn(name = "id")
     private User user;
 
     private String concernSummary;
