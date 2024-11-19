@@ -10,25 +10,22 @@ import org.springframework.stereotype.*;
 @Service
 public class SessionServiceImpl implements SessionService{
     @Override
-    public HttpSession createSession(HttpServletRequest request, String id, Object role) {
+    public HttpSession createSession(HttpServletRequest request, Long id, Object role) {
         HttpSession newSession = request.getSession(true);
 
         newSession.setMaxInactiveInterval(SESSION_TIMEOUT);
-
         newSession.setAttribute(ID, id);
         newSession.setAttribute(ROLE, role);
-
         return newSession;
     }
 
     @Override
-    public void regenerateSession(HttpServletRequest request, String id, Object role) {
-
+    public void regenerateSession(HttpServletRequest request, Long id, Object role) {
         HttpSession oldSession = request.getSession(false);
+
         if (oldSession != null) {
             oldSession.invalidate();
         }
-
         HttpSession newSession = createSession(request, id, role);
     }
 }
