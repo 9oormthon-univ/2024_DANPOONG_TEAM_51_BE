@@ -27,6 +27,11 @@ public class Mentor {
     private AuditStatus auditStatus;
     private String rejectReason;
 
+    @Builder
+    private Mentor(User user) {
+        this.user = user;
+    }
+
     public String getUsername() {
         return user.getUsername();
     }
