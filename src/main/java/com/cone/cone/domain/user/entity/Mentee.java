@@ -1,6 +1,7 @@
 package com.cone.cone.domain.user.entity;
 
 import jakarta.persistence.*;
+import java.util.*;
 import lombok.*;
 
 @Entity
@@ -32,7 +33,7 @@ public class Mentee {
         return user.getProfileImgUrl();
     }
 
-    public String getKeyword() {
-        return user.getKeyword();
+    public List<String> getKeywords() {
+        return user.getKeywords();
     }
 }
