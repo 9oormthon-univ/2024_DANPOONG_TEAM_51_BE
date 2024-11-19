@@ -2,8 +2,6 @@ package com.cone.cone.domain.room.entity;
 
 import com.cone.cone.domain.user.entity.Mentee;
 import com.cone.cone.domain.user.entity.Mentor;
-import com.cone.cone.domain.user.entity.PlatformType;
-import com.cone.cone.domain.user.entity.Role;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
@@ -23,7 +21,7 @@ public class Room {
     private Mentor mentor;
 
     @ManyToOne
-    @Column(name = "mentee_id", nullable = false, updatable = false)
+    @JoinColumn(name = "mentee_id", nullable = false, updatable = false)
     private Mentee mentee;
 
     @Builder

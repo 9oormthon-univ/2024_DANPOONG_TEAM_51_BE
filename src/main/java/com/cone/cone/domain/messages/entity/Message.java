@@ -18,7 +18,7 @@ public class Message {
     private Room room;
 
     @ManyToOne
-    @Column(name = "sender_id", nullable = false, updatable = false)
+    @JoinColumn(name = "sender_id", nullable = false, updatable = false)
     private User sender;
 
     @Column(nullable = false, updatable = false)
