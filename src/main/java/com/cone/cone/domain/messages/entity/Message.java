@@ -4,11 +4,13 @@ import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "messages")
+@NoArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = IDENTITY)
