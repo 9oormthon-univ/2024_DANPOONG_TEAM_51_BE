@@ -13,6 +13,7 @@ public class MenteeServiceImpl implements MenteeService{
     private MenteeRepository menteeRepository;
 
     public MenteeProfileResponse getMentorProfile(final Long menteeId) {
-        return null;
+        val mentee = menteeRepository.findByIdOrThrow(menteeId);
+        return MenteeProfileResponse.from(mentee);
     }
 }
