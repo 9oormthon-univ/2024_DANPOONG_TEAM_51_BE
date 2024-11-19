@@ -6,10 +6,10 @@ import jakarta.annotation.PreDestroy;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SocketIoServerRunner {
+public class SocketIOServerRunner {
     private final SocketIOServer server;
 
-    public SocketIoServerRunner(SocketIOServer server) {
+    public SocketIOServerRunner(SocketIOServer server) {
         this.server = server;
     }
 
