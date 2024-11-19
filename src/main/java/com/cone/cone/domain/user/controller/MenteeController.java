@@ -4,6 +4,7 @@ import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.global.response.ResponseTemplate;
+import jakarta.validation.*;
 import jakarta.websocket.server.PathParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -29,8 +30,8 @@ public class MenteeController implements MenteeApi {
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
     }
 
-
-    public ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(Long menteeId) {
+    @GetMapping("/{menteeId}")
+    public ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(@PathVariable("menteeId") Long menteeId) {
         return null;
     }
 }
