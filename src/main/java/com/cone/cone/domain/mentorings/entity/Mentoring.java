@@ -22,5 +22,5 @@ public class Mentoring extends BaseTime {
     private LocalDateTime mentoringTime;
     private int rating;
     private int reviewText;
-    private String summary;
+    private String summaryFile;
 }
