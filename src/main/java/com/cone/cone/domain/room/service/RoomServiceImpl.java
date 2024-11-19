@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static com.cone.cone.domain.room.code.RoomExceptionCode.ALREADY_EXIST_ROOM;
 import static com.cone.cone.domain.user.code.MenteeExceptionCode.NOT_FOUND_MENTEE;
 import static com.cone.cone.domain.user.code.MentorExceptionCode.NOT_FOUND_MENTOR;
 
@@ -29,6 +30,10 @@ public class RoomServiceImpl implements RoomService{
 
         final Mentee mentee = menteeRepository.findById(request.menteeId())
                 .orElseThrow(() -> new CustomException(NOT_FOUND_MENTEE));
+
+        if (roomRepository.existsByMentorAndMentee(mentor, mentee)) {
+            throw new CustomException(ALREADY_EXIST_ROOM);
+        }
 
         final Room newRoom = Room.builder()
                 .mentor(mentor)
