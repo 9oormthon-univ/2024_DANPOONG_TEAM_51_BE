@@ -1,4 +1,4 @@
-package com.cone.cone.domain.user.controller;
+package com.cone.cone.domain.auth.controller;
 
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
