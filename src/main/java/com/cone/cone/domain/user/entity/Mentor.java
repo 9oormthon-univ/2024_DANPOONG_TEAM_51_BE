@@ -13,6 +13,9 @@ public class Mentor {
     private User user;
 
     @Column(nullable = false)
+    private String keyword;
+
+    @Column(nullable = false)
     private String resume;
 
     @Column(nullable = false)
