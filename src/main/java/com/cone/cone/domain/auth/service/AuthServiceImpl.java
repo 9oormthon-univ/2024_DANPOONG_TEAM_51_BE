@@ -37,7 +37,10 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
-    public RoleResponse changeRole(final RoleRequest request) {
-        return null;
+    public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
+        val user = userRepository.findByIdOrThrow(userId);
+        user.changeRole(request.role());
+        sessionService.regenerateSession(httpServletRequest, userId, user.getRole());
+        return RoleResponse.of(user.getRole());
     }
 }
