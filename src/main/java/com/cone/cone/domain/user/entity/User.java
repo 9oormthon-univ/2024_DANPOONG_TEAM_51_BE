@@ -20,10 +20,12 @@ public class User {
     private String profileImgUrl;
 
     @Builder
-    private User(Role role, PlatformType platformType, String platformId) {
+    private User(Role role, PlatformType platformType, String platformId, String username, String profileImgUrl) {
         this.role = role;
         this.platformType = platformType;
         this.platformId = platformId;
+        this.username = username;
+        this.profileImgUrl = profileImgUrl;
     }
 
     public void changeRole(final Role role) {
