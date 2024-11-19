@@ -7,5 +7,5 @@ import jakarta.servlet.http.*;
 public interface AuthService {
     RoleResponse login(HttpServletRequest httpServletRequest, LoginRequest request);
 
-    RoleResponse changeRole(HttpServletRequest httpServletRequest, RoleRequest request);
+    RoleResponse changeRole(HttpServletRequest httpServletRequest, Long userId, RoleRequest request);
 }
