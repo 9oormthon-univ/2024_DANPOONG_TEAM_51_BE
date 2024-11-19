@@ -1,4 +1,4 @@
-package com.cone.cone.domain.user.service;
+package com.cone.cone.domain.auth.service;
 
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
@@ -32,5 +32,9 @@ public class AuthServiceImpl implements AuthService {
             userRepository.save(newUser);
             return new RoleResponse(newUser.getRole());
         }
+    }
+
+    public RoleResponse changeRole(final RoleRequest request) {
+        return null;
     }
 }
