@@ -18,6 +18,11 @@ public class Mentee {
     private String mentorPreference;
     private String concernDetail;
 
+    @Builder
+    private Mentee(User user) {
+        this.user = user;
+    }
+
     public String getUsername() {
         return user.getUsername();
     }

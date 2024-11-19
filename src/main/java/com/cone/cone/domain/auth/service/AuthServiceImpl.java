@@ -16,8 +16,10 @@ import org.springframework.transaction.annotation.*;
 @Transactional
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
-    private final OAuthPlatformService oAuthPlatformService;
     private final UserRepository userRepository;
+    private final MenteeRepository menteeRepository;
+    private final MentorRepository mentorRepository;
+    private final OAuthPlatformService oAuthPlatformService;
     private final SessionService sessionService;
 
     public RoleResponse login(HttpServletRequest httpServletRequest, LoginRequest request) {
@@ -43,8 +45,26 @@ public class AuthServiceImpl implements AuthService {
 
     public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
         val user = userRepository.findByIdOrThrow(userId);
-        user.changeRole(request.role());
+        val role = request.role();
+
+        user.changeRole(role);
+        switch(role) {
+            case MENTEE -> menteeRepository.save(createMentee(user));
+            case MENTOR -> mentorRepository.save(createMentor(user));
+        }
         sessionService.regenerateSession(httpServletRequest, userId, user.getRole());
         return RoleResponse.of(user.getRole());
+    }
+
+    private Mentee createMentee(User user) {
+        return Mentee.builder()
+                .user(user)
+                .build();
+    }
+
+    private Mentor createMentor(User user) {
+        return Mentor.builder()
+                .user(user)
+                .build();
     }
 }
