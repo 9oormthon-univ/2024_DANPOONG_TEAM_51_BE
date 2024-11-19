@@ -1,7 +1,11 @@
 package com.cone.cone.domain.user.entity;
 
+import static com.cone.cone.global.constant.DomainConstant.COMMA;
+
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import java.util.*;
+import java.util.stream.*;
 import lombok.*;
 
 @Entity
@@ -20,7 +24,7 @@ public class User {
     private String username;
     private String profileImgUrl;
     @Column(nullable = false)
-    private String keyword;
+    private String keywords;
 
     @Builder
     private User(Role role, PlatformType platformType, String platformId, String username, String profileImgUrl) {
@@ -33,5 +37,11 @@ public class User {
 
     public void changeRole(final Role role) {
         this.role = role;
+    }
+
+    public List<String> getKeywords() {
+        return Arrays.stream(keywords.split(COMMA))
+                .map(String::trim)  // 각 항목에서 불필요한 공백을 제거
+                .collect(Collectors.toList());
     }
 }
