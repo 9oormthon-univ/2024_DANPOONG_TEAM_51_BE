@@ -9,9 +9,11 @@ import com.cone.cone.external.oauth.dto.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.stereotype.*;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class AuthServiceImpl implements AuthService {
     private final OAuthPlatformService oAuthPlatformService;
     private final UserRepository userRepository;
