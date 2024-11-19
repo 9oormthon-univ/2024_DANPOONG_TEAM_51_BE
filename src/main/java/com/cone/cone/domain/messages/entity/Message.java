@@ -3,11 +3,14 @@ package com.cone.cone.domain.messages.entity;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.user.entity.User;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "messages")
+@NoArgsConstructor
 public class Message {
     @Id
     @GeneratedValue(strategy = IDENTITY)
@@ -23,4 +26,11 @@ public class Message {
 
     @Column(nullable = false, updatable = false)
     private String content;
+
+    @Builder
+    private Message(Room room, User sender, String content) {
+        this.room = room;
+        this.sender = sender;
+        this.content = content;
+    }
 }
