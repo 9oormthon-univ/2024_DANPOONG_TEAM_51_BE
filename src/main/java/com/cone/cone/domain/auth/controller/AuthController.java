@@ -1,7 +1,7 @@
 package com.cone.cone.domain.auth.controller;
 
-import static com.cone.cone.domain.user.code.AuthSuccessCode.SUCCESS_CHANGE_ROLE;
-import static com.cone.cone.domain.user.code.AuthSuccessCode.SUCCESS_SOCIAL_LOGIN;
+import static com.cone.cone.domain.auth.code.AuthSuccessCode.SUCCESS_CHANGE_ROLE;
+import static com.cone.cone.domain.auth.code.AuthSuccessCode.SUCCESS_SOCIAL_LOGIN;
 
 import com.cone.cone.domain.auth.service.*;
 import com.cone.cone.domain.user.dto.request.*;

@@ -1,4 +1,4 @@
-package com.cone.cone.domain.user.code;
+package com.cone.cone.domain.auth.code;
 
 import com.cone.cone.global.code.*;
 import lombok.*;
