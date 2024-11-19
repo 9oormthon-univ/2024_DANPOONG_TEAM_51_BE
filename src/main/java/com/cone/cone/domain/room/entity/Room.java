@@ -5,10 +5,12 @@ import com.cone.cone.domain.user.entity.Mentor;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
+@NoArgsConstructor
 @Table(name = "rooms")
 @Getter
 public class Room {
