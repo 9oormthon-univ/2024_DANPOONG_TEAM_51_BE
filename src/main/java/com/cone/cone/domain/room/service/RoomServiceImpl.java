@@ -39,10 +39,16 @@ public class RoomServiceImpl implements RoomService{
     }
 
     public List<Room> getRoomsByMentorId(Long mentorId) {
-        return roomRepository.findAllByMentor_Id(mentorId);
+        final Mentor mentor = mentorRepository.findById(mentorId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MENTOR));
+
+        return roomRepository.findAllByMentor(mentor);
     }
 
     public List<Room> getRoomsByMenteeId(Long menteeId) {
-        return roomRepository.findAllByMentee_Id(menteeId);
+        final Mentee mentee = menteeRepository.findById(menteeId)
+                .orElseThrow(() -> new CustomException(NOT_FOUND_MENTEE));
+
+        return roomRepository.findAllByMentee(mentee);
     }
 }
