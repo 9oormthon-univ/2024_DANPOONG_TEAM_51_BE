@@ -16,13 +16,13 @@ public class AuthServiceImpl implements AuthService {
     private final OAuthPlatformService oAuthPlatformService;
     private final UserRepository userRepository;
 
-    public LoginResponse login(LoginRequest request) {
+    public RoleResponse login(LoginRequest request) {
         UserInfoResponse userInfo = oAuthPlatformService.getUserInfo(request.platformType(), request.code());
         Optional<User> existingUser = userRepository.findByPlatformId(userInfo.id());
 
         if (existingUser.isPresent()) {
             User user = existingUser.get();
-            return LoginResponse.of(user.getRole());
+            return RoleResponse.of(user.getRole());
         } else {
             User newUser = User.builder()
                     .role(Role.GUEST)
@@ -30,7 +30,7 @@ public class AuthServiceImpl implements AuthService {
                     .platformId(userInfo.id())
                     .build();
             userRepository.save(newUser);
-            return new LoginResponse(newUser.getRole());
+            return new RoleResponse(newUser.getRole());
         }
     }
 }

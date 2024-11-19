@@ -7,5 +7,5 @@ import jakarta.validation.*;
 import org.springframework.http.*;
 
 public interface AuthApi {
-    ResponseEntity<ResponseTemplate<LoginResponse>> login(@Valid LoginRequest request);
+    ResponseEntity<ResponseTemplate<RoleResponse>> login(@Valid LoginRequest request);
 }
