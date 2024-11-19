@@ -5,4 +5,6 @@ import com.cone.cone.domain.user.dto.response.*;
 
 public interface AuthService {
     RoleResponse login(LoginRequest request);
+
+    RoleResponse changeRole(RoleRequest request);
 }
