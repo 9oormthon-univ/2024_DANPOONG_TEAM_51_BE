@@ -2,6 +2,7 @@ package com.cone.cone.external.socket.controller;
 
 import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.external.socket.ChatFacade;
+import com.cone.cone.external.socket.type.SocketMessage;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.listener.DataListener;
 import lombok.extern.slf4j.Slf4j;
@@ -23,13 +24,13 @@ public class SocketIOController {
 
       server.addConnectListener(onConnected());
       server.addDisconnectListener(onDisconnected());
-      server.addEventListener(MESSAGE, Message.class, onMessage());
+      server.addEventListener(MESSAGE, SocketMessage.class, onMessage());
    }
 
-   private DataListener<Message> onMessage() {
+   private DataListener<SocketMessage> onMessage() {
       return (client, data, ack) -> {
          String room = client.getHandshakeData().getSingleUrlParam("room");
-         log.info("Event[{}] from Socket Id[{}] - Sender[{}]: {}", MESSAGE, client.getSessionId(), data.getSender(), data.getContent());
+         log.info("Event[{}] from Socket Id[{}] - Sender[{}]: {}", MESSAGE, client.getSessionId(), data.senderId(), data.content());
          chatFacade.sendMessage(client, Long.parseLong(room), data);
       };
    }
