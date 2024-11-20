@@ -23,4 +23,10 @@ public class Mentoring extends BaseTime {
     private int rating;
     private String reviewText;
     private String summaryFile;
+
+    @Builder
+    private Mentoring(Room room) {
+        this.status = MentoringStatus.INPROGRESS;
+        this.room = room;
+    }
 }

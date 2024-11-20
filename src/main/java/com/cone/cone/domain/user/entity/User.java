@@ -19,7 +19,7 @@ public class User {
     private Role role;
     @Column(nullable = false) @Enumerated(value = EnumType.STRING)
     private PlatformType platformType;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String platformId;
     private String username;
     private String profileImgUrl;

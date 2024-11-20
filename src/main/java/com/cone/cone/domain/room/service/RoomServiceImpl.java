@@ -15,8 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.cone.cone.domain.room.code.RoomExceptionCode.ALREADY_EXIST_ROOM;
-import static com.cone.cone.domain.user.code.MenteeExceptionCode.NOT_FOUND_MENTEE;
-import static com.cone.cone.domain.user.code.MentorExceptionCode.NOT_FOUND_MENTOR;
+import static com.cone.cone.domain.user.code.MenteeExceptionCode.INVALID_REQUEST_FIND_MENTEE;
+import static com.cone.cone.domain.user.code.MentorExceptionCode.INVALID_REQUEST_FIND_MENTOR;
 
 @Service
 @RequiredArgsConstructor
@@ -29,10 +29,10 @@ public class RoomServiceImpl implements RoomService{
     @Transactional
     public Room createRoom(final RoomCreateRequest request) {
         final Mentor mentor = mentorRepository.findById(request.mentorId())
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MENTOR));
+                .orElseThrow(() -> new CustomException(INVALID_REQUEST_FIND_MENTOR));
 
         final Mentee mentee = menteeRepository.findById(request.menteeId())
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MENTEE));
+                .orElseThrow(() -> new CustomException(INVALID_REQUEST_FIND_MENTEE));
 
         if (roomRepository.existsByMentorAndMentee(mentor, mentee)) {
             throw new CustomException(ALREADY_EXIST_ROOM);
@@ -48,14 +48,14 @@ public class RoomServiceImpl implements RoomService{
 
     public List<Room> getRoomsByMentorId(Long mentorId) {
         final Mentor mentor = mentorRepository.findById(mentorId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MENTOR));
+                .orElseThrow(() -> new CustomException(INVALID_REQUEST_FIND_MENTOR));
 
         return roomRepository.findAllByMentor(mentor);
     }
 
     public List<Room> getRoomsByMenteeId(Long menteeId) {
         final Mentee mentee = menteeRepository.findById(menteeId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_MENTEE));
+                .orElseThrow(() -> new CustomException(INVALID_REQUEST_FIND_MENTEE));
 
         return roomRepository.findAllByMentee(mentee);
     }

@@ -31,6 +31,7 @@ public class AuthServiceImpl implements AuthService {
 
         if (existingUser.isPresent()) {
             User user = existingUser.get();
+            createSession(httpServletRequest, user);
             return RoleResponse.of(user.getRole());
         } else {
             User newUser = User.builder()
@@ -41,9 +42,13 @@ public class AuthServiceImpl implements AuthService {
                     .profileImgUrl(userInfo.profileUrl())
                     .build();
             userRepository.save(newUser);
-            sessionService.createSession(httpServletRequest, newUser.getId(), newUser.getRole());
+            createSession(httpServletRequest, newUser);
             return new RoleResponse(newUser.getRole());
         }
+    }
+
+    private void createSession(HttpServletRequest httpServletRequest, User user) {
+        sessionService.generateSession(httpServletRequest, user.getId(), user.getRole());
     }
 
     public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
@@ -56,7 +61,7 @@ public class AuthServiceImpl implements AuthService {
             case MENTEE -> menteeRepository.save(createMentee(user));
             case MENTOR -> mentorRepository.save(createMentor(user));
         }
-        sessionService.regenerateSession(httpServletRequest, userId, user.getRole());
+        sessionService.generateSession(httpServletRequest, userId, user.getRole());
         return RoleResponse.of(user.getRole());
     }
 
