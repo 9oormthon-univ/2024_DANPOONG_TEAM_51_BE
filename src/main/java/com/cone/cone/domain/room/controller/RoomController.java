@@ -2,14 +2,12 @@ package com.cone.cone.domain.room.controller;
 
 import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.domain.messages.service.MessageService;
-import com.cone.cone.domain.messages.service.MessageServiceImpl;
 import com.cone.cone.domain.room.dto.RoomCreateRequest;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.global.response.ResponseTemplate;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +17,7 @@ import java.util.List;
 import static com.cone.cone.domain.messages.code.MessageSuccessCode.SUCCESS_GET_MESSAGES;
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_CREATE_ROOM;
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
+import static com.cone.cone.domain.user.entity.Role.MENTOR;
 
 @RestController
 @RequestMapping("/rooms")

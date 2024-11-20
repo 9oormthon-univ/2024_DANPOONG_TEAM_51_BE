@@ -31,48 +31,48 @@ public class KakaoAuthService implements OAuthService{
     }
 
     public String getAccessToken(String code) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
 
-        String body = "grant_type=authorization_code" +
-                "&client_id=" + clientId +
-                "&redirect_uri=" + redirectUri +
-                "&code=" + code;
+            String body = "grant_type=authorization_code" +
+                    "&client_id=" + clientId +
+                    "&redirect_uri=" + redirectUri +
+                    "&code=" + code;
 
-        HttpEntity<String> request = new HttpEntity<>(body, headers);
+            HttpEntity<String> request = new HttpEntity<>(body, headers);
 
-        ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(
-                KAKAO_TOKEN_URL,
-                HttpMethod.POST,
-                request,
-                AccessTokenResponse.class
-        );
+            ResponseEntity<AccessTokenResponse> response = restTemplate.exchange(
+                    KAKAO_TOKEN_URL,
+                    HttpMethod.POST,
+                    request,
+                    AccessTokenResponse.class
+            );
 
-        if (!response.getStatusCode().is2xxSuccessful()) {
+            return response.getBody().accessToken();
+        } catch (RuntimeException e) {
             throw new CustomException(INVALID_AUTH_CODE);
         }
-
-        return response.getBody().accessToken();
     }
 
     public UserInfoResponse getUserInfo(String accessToken) {
-        HttpHeaders headers = new HttpHeaders();
-        headers.setBearerAuth(accessToken);
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(accessToken);
 
-        HttpEntity<Void> request = new HttpEntity<>(headers);
+            HttpEntity<Void> request = new HttpEntity<>(headers);
 
-        ResponseEntity<Map> response = restTemplate.exchange(
-                KAKAO_USER_INFO_URL,
-                HttpMethod.GET,
-                request,
-                Map.class
-        );
+            ResponseEntity<Map> response = restTemplate.exchange(
+                    KAKAO_USER_INFO_URL,
+                    HttpMethod.GET,
+                    request,
+                    Map.class
+            );
 
-        if (!response.getStatusCode().is2xxSuccessful()) {
+            return getUserInfoByParsing(response.getBody());
+        } catch(RuntimeException e) {
             throw new CustomException(INVALID_AUTH_ACCESS_TOKEN);
         }
-
-        return getUserInfoByParsing(response.getBody());
     }
 
 

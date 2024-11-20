@@ -6,8 +6,9 @@ import org.springframework.http.*;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum AuthSuccessCode implements SuccessCode {
-    SUCCESS_SOCIAL_LOGIN(HttpStatus.OK, "소셜 로그인에 성공했습니다");
+public enum MentorSuccessCode implements SuccessCode {
+    SUCCESS_GET_MENTOR_PROFILE(HttpStatus.OK, "멘토 프로필 조회에 성공했습니다"),
+    SUCCESS_GET_MENTORS(HttpStatus.OK, "멘토 리스트 조회에 성공했습니다");
 
     private final HttpStatus status;
     private final String message;
