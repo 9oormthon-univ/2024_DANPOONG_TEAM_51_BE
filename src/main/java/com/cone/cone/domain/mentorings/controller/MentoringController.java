@@ -1,6 +1,7 @@
 package com.cone.cone.domain.mentorings.controller;
 
 import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_REQUEST_MENTORING;
+import static com.cone.cone.domain.user.entity.Role.MENTEE;
 
 import com.cone.cone.domain.mentorings.dto.request.*;
 import com.cone.cone.domain.mentorings.dto.response.*;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 public class MentoringController implements MentoringApi {
     private final MentoringService mentoringService;
 
+    @SessionAuth
+    @SessionRole(roles = MENTEE)
     @Override
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, MentoringRequest request) {
         val response = mentoringService.requestMentoring(menteeId, request);
