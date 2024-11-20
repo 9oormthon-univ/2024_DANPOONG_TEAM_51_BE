@@ -29,16 +29,18 @@ public class MentoringServiceImpl implements MentoringService {
         val room = roomRepository.findByMenteeAndMentor(mentee, mentor).orElse(
                 createNewRoom(mentee, mentor)
         );
-        val mentoring = Mentoring.builder().room(room).build();
+        var mentoring = Mentoring.builder().room(room).build();
 
-        mentoringRepository.save(mentoring);
+        mentoring = mentoringRepository.save(mentoring);
         return MentoringIdResponse.of(mentoring.getId());
     }
 
     private Room createNewRoom(Mentee mentee, Mentor mentor) {
-        return Room.builder()
+        val room = Room.builder()
                 .mentee(mentee)
                 .mentor(mentor)
                 .build();
+        roomRepository.save(room);
+        return room;
     }
 }

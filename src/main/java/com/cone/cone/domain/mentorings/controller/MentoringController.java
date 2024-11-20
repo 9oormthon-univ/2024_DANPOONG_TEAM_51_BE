@@ -19,7 +19,7 @@ public class MentoringController implements MentoringApi {
     private final MentoringService mentoringService;
 
     @SessionAuth
-    @SessionRole(roles = {MENTEE})
+    @SessionRole(roles = MENTEE)
     @PostMapping
     @Override
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, @RequestBody MentoringRequest request) {
