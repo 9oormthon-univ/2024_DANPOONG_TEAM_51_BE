@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum MenteeExceptionCode implements ExceptionCode {
-    NOT_FOUND_MENTEE(HttpStatus.NOT_FOUND, "요청하신 멘티를 찾을 수 없습니다");
+    INVALID_REQUEST_FIND_MENTEE(HttpStatus.BAD_REQUEST, "요청하신 멘티를 찾을 수 없습니다");
 
     private final HttpStatus status;
     private final String message;
