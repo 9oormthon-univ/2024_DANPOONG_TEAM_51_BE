@@ -1,5 +1,7 @@
 package com.cone.cone.domain.mentorings.controller;
 
+import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_REQUEST_MENTORING;
+
 import com.cone.cone.domain.mentorings.dto.request.*;
 import com.cone.cone.domain.mentorings.dto.response.*;
 import com.cone.cone.domain.mentorings.service.*;
@@ -18,6 +20,6 @@ public class MentoringController implements MentoringApi {
     @Override
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, MentoringRequest request) {
         val response = mentoringService.requestMentoring(menteeId, request);
-        return null;
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REQUEST_MENTORING, response));
     }
 }
