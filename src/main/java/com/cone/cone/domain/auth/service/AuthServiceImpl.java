@@ -41,7 +41,7 @@ public class AuthServiceImpl implements AuthService {
                     .profileImgUrl(userInfo.profileUrl())
                     .build();
             userRepository.save(newUser);
-            sessionService.createSession(httpServletRequest, newUser.getId(), newUser.getRole());
+            sessionService.generateSession(httpServletRequest, newUser.getId(), newUser.getRole());
             return new RoleResponse(newUser.getRole());
         }
     }
@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
             case MENTEE -> menteeRepository.save(createMentee(user));
             case MENTOR -> mentorRepository.save(createMentor(user));
         }
-        sessionService.regenerateSession(httpServletRequest, userId, user.getRole());
+        sessionService.generateSession(httpServletRequest, userId, user.getRole());
         return RoleResponse.of(user.getRole());
     }
 

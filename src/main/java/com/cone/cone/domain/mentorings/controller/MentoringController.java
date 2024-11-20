@@ -19,9 +19,10 @@ public class MentoringController implements MentoringApi {
     private final MentoringService mentoringService;
 
     @SessionAuth
-    @SessionRole(roles = MENTEE)
+    @SessionRole(roles = {MENTEE})
+    @PostMapping
     @Override
-    public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, MentoringRequest request) {
+    public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, @RequestBody MentoringRequest request) {
         val response = mentoringService.requestMentoring(menteeId, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REQUEST_MENTORING, response));
     }

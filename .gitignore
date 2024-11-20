@@ -38,3 +38,4 @@ out/
 
 ### SETTING ###
 src/main/resources/application-secret.properties
+*.sql
