@@ -8,7 +8,6 @@ import com.cone.cone.global.annotation.SessionRole;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.domain.user.service.*;
 import com.cone.cone.global.response.ResponseTemplate;
-import jakarta.validation.*;
 import lombok.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,12 +38,16 @@ public class MentorController implements MentorApi{
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
     }
 
+    @SessionAuth
+    @SessionRole(roles = {MENTOR, MENTEE})
     @GetMapping("/{mentorId}")
     public ResponseEntity<ResponseTemplate<MentorProfileResponse>> getMentorProfile(@PathVariable("mentorId") Long mentorId) {
         val response = mentorService.getMentorProfile(mentorId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTOR_PROFILE, response));
     }
 
+    @SessionAuth
+    @SessionRole(roles = {MENTOR, MENTEE})
     @GetMapping
     public ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors() {
         val response = mentorService.getMentors();
