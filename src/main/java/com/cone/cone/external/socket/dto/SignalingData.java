@@ -1,4 +1,4 @@
-package com.cone.cone.socketio.service.type;
+package com.cone.cone.external.socket.dto;
 
 public record SignalingData(
     Object candidate,

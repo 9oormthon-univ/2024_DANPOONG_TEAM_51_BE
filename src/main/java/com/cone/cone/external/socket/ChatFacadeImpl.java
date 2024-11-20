@@ -1,8 +1,7 @@
 package com.cone.cone.external.socket;
 
-import com.cone.cone.external.socket.type.SocketMessage;
+import com.cone.cone.external.socket.dto.SocketMessage;
 import com.corundumstudio.socketio.SocketIOClient;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

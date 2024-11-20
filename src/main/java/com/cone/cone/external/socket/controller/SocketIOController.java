@@ -1,8 +1,7 @@
 package com.cone.cone.external.socket.controller;
 
-import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.external.socket.ChatFacade;
-import com.cone.cone.external.socket.type.SocketMessage;
+import com.cone.cone.external.socket.dto.SocketMessage;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.listener.DataListener;
 import lombok.extern.slf4j.Slf4j;

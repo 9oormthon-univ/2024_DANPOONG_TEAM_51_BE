@@ -1,6 +1,6 @@
 package com.cone.cone.external.socket;
 
-import com.cone.cone.external.socket.type.SocketMessage;
+import com.cone.cone.external.socket.dto.SocketMessage;
 import com.corundumstudio.socketio.SocketIOClient;
 
 public interface ChatFacade {
