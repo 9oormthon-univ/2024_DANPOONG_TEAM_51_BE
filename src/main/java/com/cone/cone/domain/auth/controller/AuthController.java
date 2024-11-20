@@ -2,10 +2,12 @@ package com.cone.cone.domain.auth.controller;
 
 import static com.cone.cone.domain.auth.code.AuthSuccessCode.SUCCESS_CHANGE_ROLE;
 import static com.cone.cone.domain.auth.code.AuthSuccessCode.SUCCESS_SOCIAL_LOGIN;
+import static com.cone.cone.domain.user.entity.Role.GUEST;
 
 import com.cone.cone.domain.auth.service.*;
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
+import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.global.annotation.*;
 import com.cone.cone.global.response.*;
 import jakarta.servlet.http.*;
@@ -27,6 +29,7 @@ public class AuthController implements AuthApi {
     }
 
     @SessionAuth
+    @SessionRole(roles = GUEST)
     @PatchMapping("/onboarding")
     public ResponseEntity<ResponseTemplate<RoleResponse>> onboarding(HttpServletRequest httpServletRequest,
                                                                      final @SessionId Long userId,
