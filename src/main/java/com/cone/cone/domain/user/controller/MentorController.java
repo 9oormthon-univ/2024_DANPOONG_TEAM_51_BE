@@ -43,4 +43,9 @@ public class MentorController implements MentorApi{
         val response = mentorService.getMentorProfile(mentorId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTOR_PROFILE, response));
     }
+
+    @GetMapping
+    public ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors() {
+        return null;
+    }
 }
