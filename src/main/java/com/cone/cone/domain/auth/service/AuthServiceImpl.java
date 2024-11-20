@@ -1,11 +1,14 @@
 package com.cone.cone.domain.auth.service;
 
+import static com.cone.cone.domain.user.entity.Role.GUEST;
+
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
 import com.cone.cone.external.oauth.*;
 import com.cone.cone.external.oauth.dto.*;
+import com.cone.cone.global.exception.*;
 import jakarta.servlet.http.*;
 import java.util.*;
 import lombok.*;
@@ -31,7 +34,7 @@ public class AuthServiceImpl implements AuthService {
             return RoleResponse.of(user.getRole());
         } else {
             User newUser = User.builder()
-                    .role(Role.GUEST)
+                    .role(GUEST)
                     .platformType(request.platformType())
                     .platformId(userInfo.id())
                     .username(userInfo.nickname())
@@ -47,8 +50,9 @@ public class AuthServiceImpl implements AuthService {
         val user = userRepository.findByIdOrThrow(userId);
         val role = request.role();
 
+        Role.validateRole(role);
         user.changeRole(role);
-        switch(role) {
+        switch (role) {
             case MENTEE -> menteeRepository.save(createMentee(user));
             case MENTOR -> mentorRepository.save(createMentor(user));
         }

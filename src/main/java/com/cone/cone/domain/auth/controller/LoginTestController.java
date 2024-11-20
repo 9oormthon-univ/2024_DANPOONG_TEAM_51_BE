@@ -1,4 +1,4 @@
-package com.cone.cone.domain.user.controller;
+package com.cone.cone.domain.auth.controller;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;

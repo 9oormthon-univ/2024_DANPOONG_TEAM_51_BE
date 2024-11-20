@@ -11,4 +11,6 @@ public interface MentorApi {
     ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(Long id);
 
     ResponseEntity<ResponseTemplate<MentorProfileResponse>> getMentorProfile(Long mentorId);
+
+    ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors();
 }

@@ -23,8 +23,7 @@ public class User {
     private String platformId;
     private String username;
     private String profileImgUrl;
-    @Column(nullable = false)
-    private String keywords;
+    private String keywords; // 온보딩에서 입력받을 수 없어 임시로 nullable하게 설정
 
     @Builder
     private User(Role role, PlatformType platformType, String platformId, String username, String profileImgUrl) {
