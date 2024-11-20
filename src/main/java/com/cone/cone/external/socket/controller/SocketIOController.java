@@ -67,10 +67,10 @@ public class SocketIOController {
 
    private ConnectListener onConnected() {
       return (client) -> {
-         String room = client.getHandshakeData().getSingleUrlParam("roomId");
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
          log.info("Socket ID[{}] - Connected to chat module through", client.getSessionId());
-         client.joinRoom(room);
-         log.info("Room[{}]'s Participants: {}", room, client.getNamespace().getRoomOperations(room).getClients().stream().map(SocketIOClient::getSessionId)
+         client.joinRoom(roomId);
+         log.info("Room[{}]'s Participants: {}", roomId, client.getNamespace().getRoomOperations(roomId).getClients().stream().map(SocketIOClient::getSessionId)
          );
       };
    }
