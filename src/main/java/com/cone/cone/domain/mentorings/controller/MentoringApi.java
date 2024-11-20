@@ -7,5 +7,5 @@ import jakarta.validation.*;
 import org.springframework.http.*;
 
 public interface MentoringApi {
-    public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@Valid MentoringRequest request);
+    public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(Long menteeId, @Valid MentoringRequest request);
 }
