@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
+import static com.cone.cone.domain.user.code.MentorSuccessCode.SUCCESS_GET_MENTORS;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 import static com.cone.cone.domain.user.entity.Role.MENTOR;
 import static com.cone.cone.domain.user.code.MentorSuccessCode.SUCCESS_GET_MENTOR_PROFILE;
@@ -46,6 +47,7 @@ public class MentorController implements MentorApi{
 
     @GetMapping
     public ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors() {
-        return null;
+        val response = mentorService.getMentors();
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORS, response));
     }
 }
