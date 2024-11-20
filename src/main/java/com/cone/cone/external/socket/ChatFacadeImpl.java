@@ -16,7 +16,7 @@ public class ChatFacadeImpl implements ChatFacade{
         this.socketService = socketService;
     }
 
-    public void sendMessage(SocketIOClient client, Long roomId, SocketMessage message) {
-        socketService.sendData(client, roomId, MESSAGE, message);
+    public void broadcastMessage(SocketIOClient client, Long roomId, SocketMessage message) {
+        socketService.broadcastData(client, roomId, MESSAGE, message);
     }
 }

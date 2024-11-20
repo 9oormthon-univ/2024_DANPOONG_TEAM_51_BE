@@ -37,7 +37,7 @@ public class SocketIOController {
       return (client, data, ack) -> {
          log.info("Event[{}] from Socket Id[{}] - Sender[{}]: {}", MESSAGE, client.getSessionId(), data.senderId(), data.content());
          String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
-         chatFacade.sendMessage(client, Long.parseLong(roomId), data);
+         chatFacade.broadcastMessage(client, Long.parseLong(roomId), data);
       };
    }
 
