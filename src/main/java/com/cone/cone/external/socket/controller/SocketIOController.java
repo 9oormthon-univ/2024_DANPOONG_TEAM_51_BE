@@ -35,8 +35,8 @@ public class SocketIOController {
 
    private DataListener<SocketMessage> onMessage() {
       return (client, data, ack) -> {
-         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
          log.info("Event[{}] from Socket Id[{}] - Sender[{}]: {}", MESSAGE, client.getSessionId(), data.senderId(), data.content());
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
          chatFacade.sendMessage(client, Long.parseLong(roomId), data);
       };
    }
@@ -44,21 +44,24 @@ public class SocketIOController {
    private DataListener<SignalingData> onOffer() {
       return (client, data, ack) -> {
          log.info("Event[{}] from Socket Id[{}] - {}", OFFER, client.getSessionId(), data.toString());
-         socketService.sendData(client, data.roomId(), OFFER, data);
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         socketService.sendData(client, Long.parseLong(roomId), OFFER, data);
       };
    }
 
    private DataListener<SignalingData> onAnswer() {
       return (client, data, ack) -> {
          log.info("Event[{}] from Socket Id[{}] - {}", ANSWER, client.getSessionId(), data.toString());
-         socketService.sendData(client, data.roomId(), ANSWER, data);
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         socketService.sendData(client, Long.parseLong(roomId), ANSWER, data);
       };
    }
 
    private DataListener<SignalingData> onCandidate() {
       return (client, data, ack) -> {
          log.info("Event[{}] from Socket Id[{}] - {}", CANDIDATE, client.getSessionId(), data.toString());
-         socketService.sendData(client, data.roomId(), CANDIDATE, data);
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         socketService.sendData(client, Long.parseLong(roomId), CANDIDATE, data);
       };
    }
 
