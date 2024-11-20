@@ -1,9 +1,4 @@
 spring:
-  config:
-    import: application-secret.properties
-  web:
-    resources:
-      add-mappings: false
 
   datasource:
     driver-class-name: org.h2.Driver
@@ -25,11 +20,6 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
-oauth:
-  kakao:
-    redirect-uri: ${KAKAO_REDIRECT_URL}
-    client-id: ${KAKAO_REST_API_KEY}
 
 socketio:
   server:
