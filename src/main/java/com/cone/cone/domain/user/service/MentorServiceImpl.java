@@ -3,6 +3,7 @@ package com.cone.cone.domain.user.service;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
+import java.util.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
@@ -16,5 +17,9 @@ public class MentorServiceImpl implements MentorService{
     public MentorProfileResponse getMentorProfile(final Long mentorId) {
         Mentor mentor = mentorRepository.findByIdOrThrow(mentorId);
         return MentorProfileResponse.from(mentor);
+    }
+
+    public List<MentorResponse> getMentors() {
+        return null;
     }
 }
