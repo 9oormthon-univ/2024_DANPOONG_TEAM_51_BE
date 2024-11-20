@@ -24,3 +24,8 @@ oauth:
   kakao:
     redirect-uri: ${KAKAO_REDIRECT_URL}
     client-id: ${KAKAO_REST_API_KEY}
+
+socketio:
+  server:
+    hostname: ${SOCKET_HOST}
+    port: ${SOCKET_PORT}
