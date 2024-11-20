@@ -10,6 +10,7 @@ import com.cone.cone.domain.user.repository.MentorRepository;
 import com.cone.cone.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -19,11 +20,13 @@ import static com.cone.cone.domain.user.code.MentorExceptionCode.INVALID_REQUEST
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class RoomServiceImpl implements RoomService{
     private final RoomRepository roomRepository;
     private final MentorRepository mentorRepository;
     private final MenteeRepository menteeRepository;
 
+    @Transactional
     public Room createRoom(final RoomCreateRequest request) {
         final Mentor mentor = mentorRepository.findById(request.mentorId())
                 .orElseThrow(() -> new CustomException(INVALID_REQUEST_FIND_MENTOR));
