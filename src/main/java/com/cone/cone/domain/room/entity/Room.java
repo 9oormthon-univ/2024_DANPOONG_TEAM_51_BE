@@ -38,6 +38,7 @@ public class Room {
     private Room(Mentor mentor, Mentee mentee) {
         this.mentor = mentor;
         this.mentee = mentee;
+        this.isStable = false;
     }
 
     public boolean markAsStable() {
