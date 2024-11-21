@@ -6,6 +6,8 @@ import org.springframework.context.annotation.*;
 import org.springframework.web.method.support.*;
 import org.springframework.web.servlet.config.annotation.*;
 
+import static org.springframework.http.HttpHeaders.LOCATION;
+
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
@@ -18,5 +20,21 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
         resolvers.add(sessionIdArgumentResolver);
+    }
+
+    @Override
+    public void addCorsMappings(final CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:5173", "https://localhost:5173")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS")
+                .allowCredentials(true)
+                .exposedHeaders(LOCATION);
+
+        registry.addMapping("/auth/social/login")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "OPTIONS")
+                .allowCredentials(false);
+
+        WebMvcConfigurer.super.addCorsMappings(registry);
     }
 }

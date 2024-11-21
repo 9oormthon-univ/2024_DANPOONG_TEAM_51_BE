@@ -20,7 +20,7 @@ public class SocketIOConfig {
         com.corundumstudio.socketio.Configuration config = new com.corundumstudio.socketio.Configuration();
         config.setHostname(hostname);
         config.setPort(port);
-        config.setOrigin("http://localhost:5173");
+        config.setOrigin("https://localhost:5173");
         return new SocketIOServer(config);
     }
 }
