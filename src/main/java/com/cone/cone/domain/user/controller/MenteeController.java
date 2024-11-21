@@ -35,7 +35,7 @@ public class MenteeController implements MenteeApi {
 
     @SessionAuth
     @SessionRole(roles = MENTEE)
-    @GetMapping("/{id}/rooms")
+    @GetMapping("/me/rooms")
     public ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(@SessionId Long id) {
         final List<Room> rooms = roomService.getRoomsByMenteeId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
