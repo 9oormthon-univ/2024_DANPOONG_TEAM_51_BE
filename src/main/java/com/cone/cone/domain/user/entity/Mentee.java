@@ -2,7 +2,11 @@ package com.cone.cone.domain.user.entity;
 
 import jakarta.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
+
 import lombok.*;
+
+import static com.cone.cone.global.constant.DomainConstant.COMMA;
 
 @Entity
 @Table(name = "mentees")
@@ -18,8 +22,12 @@ public class Mentee {
     private User user;
 
     private String concernSummary;
-    private String mentorPreference;
+
     private String concernDetail;
+
+    private String mentorPreference;
+
+    private String keywords;
 
     @Builder
     private Mentee(User user) {
@@ -35,6 +43,8 @@ public class Mentee {
     }
 
     public List<String> getKeywords() {
-        return user.getKeywords();
+        return Arrays.stream(keywords.split(COMMA))
+                .map(String::trim)  // 각 항목에서 불필요한 공백을 제거
+                .collect(Collectors.toList());
     }
 }
