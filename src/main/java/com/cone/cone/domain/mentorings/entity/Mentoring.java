@@ -20,7 +20,7 @@ public class Mentoring extends BaseTime {
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
     private LocalDateTime mentoringTime;
-    private int rating;
+    private int rating = 0;
     private String reviewText;
     private String summaryFile;
 
