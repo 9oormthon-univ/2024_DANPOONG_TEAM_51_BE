@@ -7,5 +7,7 @@ import java.util.*;
 public interface MentoringService {
     MentoringIdResponse requestMentoring(Long menteeId, MentoringRequest request);
 
-    List<MenteeMentoringResponse> getMentoringsForMentee(Long menteeId);
+    List<MenteeMentoringResponse> getMentoringsByMenteeId(Long menteeId);
+
+    List<MentorMentoringResponse> getMentoringsByMentorId(Long mentorId);
 }
