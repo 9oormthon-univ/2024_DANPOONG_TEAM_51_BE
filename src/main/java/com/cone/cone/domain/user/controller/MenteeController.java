@@ -1,6 +1,7 @@
 package com.cone.cone.domain.user.controller;
 
 import com.cone.cone.domain.mentorings.dto.response.*;
+import com.cone.cone.domain.mentorings.service.*;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.domain.user.entity.Role;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
+import static com.cone.cone.domain.user.code.MenteeSuccessCode.SUCCESS_GET_MENTORINGS_FOR_MENTEE;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 import static com.cone.cone.domain.user.code.MenteeSuccessCode.SUCCESS_GET_MENTEE_PROFILE;
 
@@ -29,6 +31,7 @@ import static com.cone.cone.domain.user.code.MenteeSuccessCode.SUCCESS_GET_MENTE
 public class MenteeController implements MenteeApi {
     private final RoomService roomService;
     private final MenteeService menteeService;
+    private final MentoringService mentoringService;
 
     @SessionAuth
     @SessionRole(roles = MENTEE)
@@ -49,6 +52,7 @@ public class MenteeController implements MenteeApi {
     @GetMapping("/me/mentorings")
     @Override
     public ResponseEntity<ResponseTemplate<List<MenteeMentoringResponse>>> getMentoringsForMentee(@SessionId Long menteeId) {
-        return null;
+        val response = mentoringService.getMentoringsForMentee(menteeId);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORINGS_FOR_MENTEE, response));
     }
 }
