@@ -1,5 +1,6 @@
 package com.cone.cone.domain.user.controller;
 
+import com.cone.cone.domain.mentorings.dto.response.*;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.domain.user.entity.Role;
@@ -41,5 +42,13 @@ public class MenteeController implements MenteeApi {
     public ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(@PathVariable("menteeId") Long menteeId) {
         val response = menteeService.getMentorProfile(menteeId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTEE_PROFILE, response));
+    }
+
+    @SessionAuth
+    @SessionRole(roles = MENTEE)
+    @GetMapping("/me/mentorings")
+    @Override
+    public ResponseEntity<ResponseTemplate<List<MenteeMentoringResponse>>> getMentoringsForMentee(@SessionId Long menteeId) {
+        return null;
     }
 }
