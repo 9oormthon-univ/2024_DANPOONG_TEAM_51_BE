@@ -32,7 +32,7 @@ public class MentorController implements MentorApi{
 
     @SessionAuth
     @SessionRole(roles = MENTOR)
-    @GetMapping("/{id}/rooms")
+    @GetMapping("/me/rooms")
     public ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(@SessionId Long id) {
         final List<Room> rooms = roomService.getRoomsByMentorId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
