@@ -32,7 +32,7 @@ public class Mentoring extends BaseTime {
 
     @Builder
     private Mentoring(Room room) {
-        this.status = MentoringStatus.PROGRESS;
+        this.status = MentoringStatus.INREVIEW;
         this.room = room;
     }
 }
