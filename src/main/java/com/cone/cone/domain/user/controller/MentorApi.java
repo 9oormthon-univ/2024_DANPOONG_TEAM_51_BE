@@ -14,5 +14,5 @@ public interface MentorApi {
 
     ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors();
 
-
+    ResponseEntity<ResponseTemplate<List<>>>
 }
