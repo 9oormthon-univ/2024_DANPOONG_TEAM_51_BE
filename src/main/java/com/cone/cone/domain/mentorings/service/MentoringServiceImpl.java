@@ -8,6 +8,7 @@ import com.cone.cone.domain.room.entity.*;
 import com.cone.cone.domain.room.repository.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
+import java.util.*;
 import lombok.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
@@ -42,5 +43,9 @@ public class MentoringServiceImpl implements MentoringService {
                 .build();
         roomRepository.save(room);
         return room;
+    }
+
+    public List<MenteeMentoringResponse> getMentoringsForMentee(final Long menteeId) {
+        return null;
     }
 }
