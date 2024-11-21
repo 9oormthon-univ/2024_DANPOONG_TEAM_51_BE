@@ -30,6 +30,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .exposedHeaders(LOCATION);
 
+        registry.addMapping("/auth/social/login")
+                .allowedOrigins("*")
+                .allowedMethods("POST", "OPTIONS")
+                .allowCredentials(false);
+
         WebMvcConfigurer.super.addCorsMappings(registry);
     }
 }
