@@ -1,7 +1,6 @@
 package com.cone.cone.domain.auth.controller;
 
-import static com.cone.cone.domain.auth.code.AuthSuccessCode.SUCCESS_CHANGE_ROLE;
-import static com.cone.cone.domain.auth.code.AuthSuccessCode.SUCCESS_SOCIAL_LOGIN;
+import static com.cone.cone.domain.auth.code.AuthSuccessCode.*;
 import static com.cone.cone.domain.user.entity.Role.GUEST;
 
 import com.cone.cone.domain.auth.service.*;
@@ -36,6 +35,16 @@ public class AuthController implements AuthApi {
                                                                      final @RequestBody @Valid RoleRequest request) {
         val response = authService.changeRole(httpServletRequest, userId, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_CHANGE_ROLE, response));
+    }
+
+    @SessionAuth
+    @GetMapping("/me")
+    public ResponseEntity<ResponseTemplate<User>> getMe(
+            final HttpServletRequest httpServletRequest,
+            final @SessionId Long id
+    ) {
+        val response = authService.getUserById(id);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_USER, response));
     }
 
 }
