@@ -46,6 +46,10 @@ public class MentoringServiceImpl implements MentoringService {
     }
 
     public List<MenteeMentoringResponse> getMentoringsForMentee(final Long menteeId) {
-        return null;
+        val mentorings = mentoringRepository.findAllByMenteeIdOrderCreatedAtDesc(menteeId);
+
+        return mentorings.stream()
+                .map(mentoring -> MenteeMentoringResponse.of(mentoring.getId(), mentoring.getRoom().getMentor()))
+                .toList();
     }
 }
