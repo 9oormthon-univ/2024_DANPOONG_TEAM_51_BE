@@ -76,4 +76,8 @@ public class AuthServiceImpl implements AuthService {
                 .user(user)
                 .build();
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findByIdOrThrow(id);
+    }
 }
