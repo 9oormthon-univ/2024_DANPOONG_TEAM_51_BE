@@ -8,6 +8,7 @@ import com.cone.cone.domain.mentorings.dto.response.*;
 import com.cone.cone.domain.mentorings.service.*;
 import com.cone.cone.global.annotation.*;
 import com.cone.cone.global.response.*;
+import java.util.*;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +26,13 @@ public class MentoringController implements MentoringApi {
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, @RequestBody MentoringRequest request) {
         val response = mentoringService.requestMentoring(menteeId, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REQUEST_MENTORING, response));
+    }
+
+    @SessionAuth
+    @SessionRole(roles = MENTEE)
+    @GetMapping("/mentee")
+    @Override
+    public ResponseEntity<ResponseTemplate<List<MenteeMentoringResponse>>> getMentoringsForMentee(@SessionId Long menteeId) {
+        return null;
     }
 }
