@@ -21,10 +21,10 @@ public class Mentor {
     @JoinColumn(name = "id")
     private User user;
 
-    @Column(nullable = false)
+    @Column
     private String resume;
 
-    @Column(nullable = false)
+    @Column
     private String introduction;
 
     private String keywords;
