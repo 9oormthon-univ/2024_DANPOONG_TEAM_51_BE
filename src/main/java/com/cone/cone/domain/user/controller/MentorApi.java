@@ -1,5 +1,7 @@
 package com.cone.cone.domain.user.controller;
 
+import com.cone.cone.domain.mentorings.dto.response.MenteeMentoringResponse;
+import com.cone.cone.domain.mentorings.dto.response.MentorMentoringResponse;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.global.response.ResponseTemplate;
@@ -14,5 +16,5 @@ public interface MentorApi {
 
     ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors();
 
-    ResponseEntity<ResponseTemplate<List<>>>
+    ResponseEntity<ResponseTemplate<List<MentorMentoringResponse>>> getMentorings(Long id);
 }
