@@ -52,7 +52,7 @@ public class MenteeController implements MenteeApi {
     @GetMapping("/me/mentorings")
     @Override
     public ResponseEntity<ResponseTemplate<List<MenteeMentoringResponse>>> getMentoringsForMentee(@SessionId Long menteeId) {
-        val response = mentoringService.getMentoringsForMentee(menteeId);
+        val response = mentoringService.getMentoringsByMenteeId(menteeId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORINGS_FOR_MENTEE, response));
     }
 }

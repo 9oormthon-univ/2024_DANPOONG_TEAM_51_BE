@@ -13,20 +13,26 @@ import lombok.*;
 public class Mentoring extends BaseTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String content;
+
     @Enumerated(EnumType.STRING)
     private MentoringStatus status;
+
     private String rejectionReason;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Room room;
+
     private LocalDateTime mentoringTime;
-    private int rating = 0;
-    private String reviewText;
-    private String summaryFile;
+
+    private String originalRecordFileUrl;
+
+    private String summarizedRecordFileUrl;
+
+    private Duration recordDuration;
 
     @Builder
     private Mentoring(Room room) {
-        this.status = MentoringStatus.INPROGRESS;
+        this.status = MentoringStatus.INREVIEW;
         this.room = room;
     }
 }
