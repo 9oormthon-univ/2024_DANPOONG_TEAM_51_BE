@@ -1,5 +1,7 @@
 package com.cone.cone.domain.user.controller;
 
+import com.cone.cone.domain.mentorings.dto.response.MentorMentoringResponse;
+import com.cone.cone.domain.mentorings.service.MentoringService;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.global.annotation.SessionAuth;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
+import static com.cone.cone.domain.user.code.MenteeSuccessCode.SUCCESS_GET_MENTORINGS_FOR_MENTEE;
 import static com.cone.cone.domain.user.code.MentorSuccessCode.SUCCESS_GET_MENTORS;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 import static com.cone.cone.domain.user.entity.Role.MENTOR;
@@ -29,6 +32,7 @@ import static com.cone.cone.domain.user.code.MentorSuccessCode.SUCCESS_GET_MENTO
 public class MentorController implements MentorApi{
     private final RoomService roomService;
     private final MentorService mentorService;
+    private final MentoringService mentoringService;
 
     @SessionAuth
     @SessionRole(roles = MENTOR)
@@ -52,5 +56,13 @@ public class MentorController implements MentorApi{
     public ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors() {
         val response = mentorService.getMentors();
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORS, response));
+    }
+
+    @SessionAuth
+    @SessionRole(roles = {MENTOR})
+    @GetMapping("/me/mentorings")
+    public ResponseEntity<ResponseTemplate<List<MentorMentoringResponse>>> getMentorings(Long id) {
+        val response = mentoringService.getMentoringsByMentorId(id);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORINGS_FOR_MENTEE, response));
     }
 }
