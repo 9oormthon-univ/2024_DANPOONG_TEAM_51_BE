@@ -10,6 +10,4 @@ public interface MentoringService {
     List<MenteeMentoringResponse> getMentoringsByMenteeId(Long menteeId);
 
     List<MentorMentoringResponse> getMentoringsByMentorId(Long mentorId);
-
-    MentoringRecordUrlResponse getPreSignedUrlForMentoringRecord(Long mentorId, Long mentoringId);
 }
