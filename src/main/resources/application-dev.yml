@@ -1,4 +1,12 @@
 spring:
+  config:
+    import:
+      - classpath:application-secret.properties
+      - classpath:external.yml
+      - classpath:socket.yml
+  web:
+    resources:
+      add-mappings: false
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: ${DEV_DB_URL}
@@ -13,8 +21,3 @@ spring:
         show_sql: true
         dialect: org.hibernate.dialect.MySQLDialect
     open-in-view: false
-
-socketio:
-  server:
-    hostname: ${SOCKET_HOST}
-    port: ${SOCKET_PORT}
