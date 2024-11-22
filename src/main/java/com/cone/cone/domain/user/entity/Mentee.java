@@ -43,6 +43,9 @@ public class Mentee {
     }
 
     public List<String> getKeywords() {
+        if(keywords == null) {
+            return null;
+        }
         return Arrays.stream(keywords.split(COMMA))
                 .map(String::trim)  // 각 항목에서 불필요한 공백을 제거
                 .collect(Collectors.toList());
