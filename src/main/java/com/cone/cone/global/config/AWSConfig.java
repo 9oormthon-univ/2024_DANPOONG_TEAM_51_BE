@@ -12,10 +12,10 @@ import software.amazon.awssdk.services.s3.presigner.*;
 
 @Configuration
 public class AWSConfig {
-    @Value("${cloud.aws.credential.access-key}")
+    @Value("${cloud.aws.credentials.access-key}")
     private String accessKey;
 
-    @Value("${cloud.aws.credential.secret-key}")
+    @Value("${cloud.aws.credentials.secret-key}")
     private String secretKey;
 
     @Value("${cloud.aws.region.static")
