@@ -35,4 +35,8 @@ public class Mentoring extends BaseTime {
         this.status = MentoringStatus.INREVIEW;
         this.room = room;
     }
+
+    public void updateTime(LocalDateTime time) {
+        this.mentoringTime = time;
+    }
 }
