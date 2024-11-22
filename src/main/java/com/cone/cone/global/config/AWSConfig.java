@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.*;
 import org.springframework.context.annotation.*;
 import software.amazon.awssdk.auth.credentials.*;
 import software.amazon.awssdk.regions.*;
+import software.amazon.awssdk.services.s3.*;
 import software.amazon.awssdk.services.s3.presigner.*;
 
 @Configuration
@@ -31,6 +32,14 @@ public class AWSConfig {
     @Bean
     public Region getRegion() {
         return Region.of(region);
+    }
+
+    @Bean
+    public S3Client getS3Client() {
+        return S3Client.builder()
+                .region(getRegion())
+                .credentialsProvider(systemPropertyCredentialsProvider())
+                .build();
     }
 
     @Bean
