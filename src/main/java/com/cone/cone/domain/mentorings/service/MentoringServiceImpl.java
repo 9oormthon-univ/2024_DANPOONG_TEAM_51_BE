@@ -85,6 +85,11 @@ public class MentoringServiceImpl implements MentoringService {
         }
 
         mentoring.approve();
+
+        if (!mentoring.getRoom().getIsStable()) {
+            mentoring.getRoom().markAsStable();
+        }
+
         mentoringRepository.save(mentoring);
     }
 
