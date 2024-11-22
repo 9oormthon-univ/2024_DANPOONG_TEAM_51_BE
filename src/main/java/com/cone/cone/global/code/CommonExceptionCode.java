@@ -10,6 +10,7 @@ public enum CommonExceptionCode implements ExceptionCode {
     INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "입력값이 올바르지 않습니다"),
     INVALID_REQUEST_PARAM_TYPE(HttpStatus.BAD_REQUEST, "요청한 파라미터 타입이 올바르지 않습니다"),
     NOT_NULL_REQUEST_PARAM(HttpStatus.BAD_REQUEST, "필수 요청 파라미터가 누락되었습니다"),
+    INVALID_FILE_NAME(HttpStatus.BAD_REQUEST, "S3에 존재하지 않는 파일 이름입니다"),
 
     // 401 Unauthorized
     AUTHENTICATION_REQUIRED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"),

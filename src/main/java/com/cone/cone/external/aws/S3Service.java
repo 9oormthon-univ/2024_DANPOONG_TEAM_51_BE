@@ -1,6 +1,7 @@
 package com.cone.cone.external.aws;
 
 import static com.cone.cone.global.code.CommonExceptionCode.EXTERNAL_SERVER_ERROR;
+import static com.cone.cone.global.code.CommonExceptionCode.INVALID_FILE_NAME;
 import static com.cone.cone.global.constant.AWSConstant.PRE_SIGNED_URL_EXPIRE_MINUTE;
 import static com.cone.cone.global.constant.AWSConstant.VOICE_FILE_FORMAT;
 
@@ -61,6 +62,20 @@ public class S3Service {
         } catch (S3Exception e) {
             log.error(e.getMessage());
             throw new CustomException(EXTERNAL_SERVER_ERROR);
+        }
+    }
+
+    public String validateURL(final String prefix, final String fileName) {
+        try {
+            String zipUrl = prefix + fileName;
+            S3Client s3Client = awsConfig.getS3Client();
+
+            HeadObjectRequest request =
+                    HeadObjectRequest.builder().bucket(bucketName).key(zipUrl).build();
+            s3Client.headObject(request);
+            return fileName;
+        } catch (S3Exception e) {
+            throw new CustomException(INVALID_FILE_NAME);
         }
     }
 }
