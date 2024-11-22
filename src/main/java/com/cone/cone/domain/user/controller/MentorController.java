@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
-import static com.cone.cone.domain.user.code.MenteeSuccessCode.SUCCESS_GET_MENTORINGS_FOR_MENTEE;
 import static com.cone.cone.domain.user.code.MentorSuccessCode.*;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 import static com.cone.cone.domain.user.entity.Role.MENTOR;
@@ -58,9 +57,9 @@ public class MentorController implements MentorApi{
     }
 
     @SessionAuth
-    @SessionRole(roles = {MENTOR})
+    @SessionRole(roles = MENTOR)
     @GetMapping("/me/mentorings")
-    public ResponseEntity<ResponseTemplate<List<MentorMentoringResponse>>> getMentorings(Long id) {
+    public ResponseEntity<ResponseTemplate<List<MentorMentoringResponse>>> getMentorings(@SessionId Long id) {
         val response = mentoringService.getMentoringsByMentorId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORINGS_FOR_MENTOR, response));
     }
