@@ -6,10 +6,8 @@ import org.springframework.http.*;
 
 @Getter
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
-public enum MentoringSuccessCode implements SuccessCode {
-    SUCCESS_REQUEST_MENTORING(HttpStatus.OK, "멘토링 신청에 성공했습니다"),
-    SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD(HttpStatus.OK, "멘토링 파일 업로드 url 조회에 성공했습니다"),
-    SUCCESS_CREATE_MENTORING_CONTENT(HttpStatus.OK, "멘토링 기록에 성공했습니다");
+public enum MentoringExceptionCode implements ExceptionCode {
+    INVALID_MENTORING_REQUEST(HttpStatus.BAD_REQUEST, "멘토링에 대해 유효하지 않은 요청입니다");
 
     private final HttpStatus status;
     private final String message;

@@ -24,9 +24,9 @@ public class Mentoring extends BaseTime {
 
     private LocalDateTime mentoringTime;
 
-    private String originalRecordFileUrl;
+    private String originalRecordFileName;
 
-    private String summarizedRecordFileUrl;
+    private String summarizedRecordFileName;
 
     private Duration recordDuration;
 
@@ -34,5 +34,9 @@ public class Mentoring extends BaseTime {
     private Mentoring(Room room) {
         this.status = MentoringStatus.INREVIEW;
         this.room = room;
+    }
+
+    public void updateOriginalRecordFileName(String fileName) {
+        this.originalRecordFileName = fileName;
     }
 }
