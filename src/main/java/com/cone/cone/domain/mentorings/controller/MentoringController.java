@@ -1,6 +1,6 @@
 package com.cone.cone.domain.mentorings.controller;
 
-import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_REQUEST_MENTORING;
+import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.*;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 
 import com.cone.cone.domain.mentorings.dto.request.*;
@@ -28,17 +28,20 @@ public class MentoringController implements MentoringApi {
     }
 
     @Override
-    public ResponseEntity<ResponseTemplate<MentoringTimeResponse>> bookingMentoring(Long userId, MentoringBookingRequest request) {
-        return null;
+    public ResponseEntity<ResponseTemplate<MentoringTimeResponse>> bookingMentoring(Long userId, Long mentoringId, MentoringBookingRequest request) {
+        val response = mentoringService.bookingMentoring(userId, mentoringId, request);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_BOOKING_MENTORING_TIME, response));
     }
 
     @Override
     public ResponseEntity<ResponseTemplate<Void>> approveMentoring(Long mentorId, Long mentoringId) {
-        return null;
+        mentoringService.approveMentoring(mentorId, mentoringId);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_APPROVE_MENTORING, null));
     }
 
     @Override
     public ResponseEntity<ResponseTemplate<Void>> rejectMentoring(Long mentorId, Long mentoringId, MentoringRejectRequest request) {
-        return null;
+        mentoringService.rejectMentoring(mentorId, mentoringId, request);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REJECT_MENTORING, null));
     }
 }
