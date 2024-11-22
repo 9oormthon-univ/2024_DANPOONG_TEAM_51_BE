@@ -24,9 +24,9 @@ public class Mentoring extends BaseTime {
 
     private LocalDateTime mentoringTime;
 
-    private String originalRecordFileUrl;
+    private String originalRecordFileName;
 
-    private String summarizedRecordFileUrl;
+    private String summarizedRecordFileName;
 
     @Builder
     private Mentoring(Room room) {
@@ -46,5 +46,9 @@ public class Mentoring extends BaseTime {
     public void reject(String rejectionReason) {
         this.status = MentoringStatus.REJECTED;
         this.rejectionReason = rejectionReason;
+    }
+  
+    public void updateOriginalRecordFileName(String fileName) {
+        this.originalRecordFileName = fileName
     }
 }

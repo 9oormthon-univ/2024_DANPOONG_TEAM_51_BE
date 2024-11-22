@@ -9,6 +9,7 @@ import com.cone.cone.domain.mentorings.dto.response.*;
 import com.cone.cone.domain.mentorings.service.*;
 import com.cone.cone.global.annotation.*;
 import com.cone.cone.global.response.*;
+import jakarta.validation.*;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MentoringController implements MentoringApi {
     private final MentoringService mentoringService;
+    private final MentoringRecordService mentoringRecordService;
 
     @SessionAuth
     @SessionRole(roles = MENTEE)
@@ -45,6 +47,16 @@ public class MentoringController implements MentoringApi {
         mentoringService.approveMentoring(mentorId, mentoringId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_APPROVE_MENTORING, null));
     }
+  
+    @SessionAuth
+    @SessionRole(roles = MENTOR)
+    @GetMapping("/{mentoringId}/record")
+    @Override
+    public ResponseEntity<ResponseTemplate<MentoringRecordUrlResponse>> getPreSignedUrlForMentoringRecord(
+            @PathVariable("mentoringId") Long mentoringId, @SessionId Long mentorId) {
+        val response = mentoringRecordService.getPreSignedUrlForMentoringRecord(mentoringId, mentorId);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD, response));
+    }
 
     @SessionAuth
     @SessionRole(roles = MENTOR)
@@ -53,5 +65,16 @@ public class MentoringController implements MentoringApi {
     public ResponseEntity<ResponseTemplate<Void>> rejectMentoring(@SessionId Long mentorId, @PathVariable Long mentoringId, @RequestBody MentoringRejectRequest request) {
         mentoringService.rejectMentoring(mentorId, mentoringId, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REJECT_MENTORING, null));
+    }
+  
+    @SessionAuth
+    @SessionRole(roles = MENTOR)
+    @PostMapping("/{mentoringId}/record")
+    @Override
+    public ResponseEntity<ResponseTemplate<MentoringIdResponse>> createMentoringRecordContent(
+            @PathVariable("mentoringId") Long mentoringId, @SessionId Long mentorId,
+            @Valid @RequestBody MentoringRecordRequest request) {
+        val response = mentoringRecordService.createMentoringRecordContent(mentoringId, mentorId, request);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_CREATE_MENTORING_CONTENT, response));
     }
 }

@@ -8,6 +8,7 @@ import com.cone.cone.domain.room.entity.*;
 import com.cone.cone.domain.room.repository.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
+import com.cone.cone.external.aws.*;
 import java.util.*;
 
 import com.cone.cone.global.exception.CustomException;
