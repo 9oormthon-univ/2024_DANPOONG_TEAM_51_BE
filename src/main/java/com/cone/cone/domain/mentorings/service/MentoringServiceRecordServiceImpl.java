@@ -26,6 +26,7 @@ public class MentoringServiceRecordServiceImpl implements MentoringRecordService
         val preSignedUrlVO = s3Service.getUploadPreSignedUrl(MENTORING_ORIGIN, fileName);
         return MentoringRecordUrlResponse.from(preSignedUrlVO);
     }
+
     private String getMentoringRecordFileName(Mentoring mentoring) {
         LocalDateTime now = LocalDateTime.now();
         val room = mentoring.getRoom();

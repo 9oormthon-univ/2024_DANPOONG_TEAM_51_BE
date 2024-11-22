@@ -49,6 +49,6 @@ public class Mentoring extends BaseTime {
     }
   
     public void updateOriginalRecordFileName(String fileName) {
-        this.originalRecordFileName = fileName
+        this.originalRecordFileName = fileName;
     }
 }
