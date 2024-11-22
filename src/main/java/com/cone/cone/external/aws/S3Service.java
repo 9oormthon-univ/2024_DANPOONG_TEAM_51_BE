@@ -1,16 +1,19 @@
 package com.cone.cone.external.aws;
 
+import static com.cone.cone.global.code.CommonExceptionCode.EXTERNAL_SERVER_ERROR;
 import static com.cone.cone.global.constant.AWSConstant.PRE_SIGNED_URL_EXPIRE_MINUTE;
 import static com.cone.cone.global.constant.AWSConstant.VOICE_FILE_FORMAT;
 
 import com.cone.cone.external.aws.vo.*;
 import com.cone.cone.global.config.*;
+import com.cone.cone.global.exception.*;
 import java.net.*;
 import java.time.*;
 import lombok.*;
 import lombok.extern.slf4j.*;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.*;
+import software.amazon.awssdk.services.s3.*;
 import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.*;
 import software.amazon.awssdk.services.s3.presigner.model.*;
@@ -18,7 +21,7 @@ import software.amazon.awssdk.services.s3.presigner.model.*;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class S3PreSignedUrlService {
+public class S3Service {
 
     @Value("${cloud.aws.s3.bucket}")
     private String bucketName;
@@ -47,5 +50,17 @@ public class S3PreSignedUrlService {
 
     private String generateVoiceFile(String fileName) {
         return fileName + VOICE_FILE_FORMAT;
+    }
+
+    public void deleteFile(final String prefix, final String fileName) {
+        String key = prefix + fileName;
+        final S3Client s3Client = awsConfig.getS3Client();
+        try {
+            s3Client.deleteObject(
+                    (DeleteObjectRequest.Builder builder) -> builder.bucket(bucketName).key(key).build());
+        } catch (S3Exception e) {
+            log.error(e.getMessage());
+            throw new CustomException(EXTERNAL_SERVER_ERROR);
+        }
     }
 }
