@@ -30,3 +30,4 @@ server:
     session:
       cookie:
         same-site: lax
+        secure: false
