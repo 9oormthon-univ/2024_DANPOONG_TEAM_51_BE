@@ -19,4 +19,11 @@ public interface MentoringRepository extends JpaRepository<Mentoring, Long> {
             "where r.mentor.id = :mentorId " +
             "order by m.createdAt desc")
     List<Mentoring> findAllByMentorIdOrderCreatedAtDesc(@Param("mentorId") Long menteeId);
+
+    @Query("select m from Mentoring m " +
+            "join fetch m.room r " +
+            "join fetch r.mentor " +
+            "where r.mentor.id = :userId or r.mentee.id = :userId " +
+            "order by m.createdAt desc")
+    List<Mentoring> findAllByUserIdOrderCreatedAtDesc(@Param("userId") Long userId);
 }
