@@ -11,9 +11,9 @@ public interface MentoringService {
 
     List<MentorMentoringResponse> getMentoringsByMentorId(Long mentorId);
 
-    MentoringTimeResponse bookingMentoring(Long userId, MentoringRequest request);
+    MentoringTimeResponse bookingMentoring(Long userId, Long mentoringId);
 
-    Void permitMentoring(Long mentorId, MentoringRequest request);
+    Void permitMentoring(Long mentorId, Long mentoringId);
 
-    Void rejectMentoring(Long mentorId, MentoringRequest request);
+    Void rejectMentoring(Long mentorId, Long mentoringId);
 }
