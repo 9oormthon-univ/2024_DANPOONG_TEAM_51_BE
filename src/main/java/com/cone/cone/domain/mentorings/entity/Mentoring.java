@@ -28,10 +28,9 @@ public class Mentoring extends BaseTime {
 
     private String summarizedRecordFileUrl;
 
-    private Duration recordDuration;
-
     @Builder
     private Mentoring(Room room) {
+        super(LocalDateTime.now(), LocalDateTime.now());
         this.status = MentoringStatus.INREVIEW;
         this.room = room;
     }
