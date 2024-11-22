@@ -39,4 +39,13 @@ public class Mentoring extends BaseTime {
     public void updateTime(LocalDateTime time) {
         this.mentoringTime = time;
     }
+
+    public void approve() {
+        this.status = MentoringStatus.APPROVED;
+    }
+
+    public void reject(String rejectionReason) {
+        this.status = MentoringStatus.REJECTED;
+        this.rejectionReason = rejectionReason;
+    }
 }
