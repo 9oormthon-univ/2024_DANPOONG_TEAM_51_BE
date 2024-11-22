@@ -8,6 +8,7 @@ import com.cone.cone.domain.room.entity.*;
 import com.cone.cone.domain.room.repository.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
+import com.cone.cone.external.aws.*;
 import java.util.*;
 import lombok.*;
 import org.springframework.stereotype.*;
@@ -21,6 +22,7 @@ public class MentoringServiceImpl implements MentoringService {
     private final MentorRepository mentorRepository;
     private final MentoringRepository mentoringRepository;
     private final RoomRepository roomRepository;
+    private final S3Service s3Service;
 
     @Transactional
     @Override
@@ -60,4 +62,10 @@ public class MentoringServiceImpl implements MentoringService {
                 .map(mentoring -> MentorMentoringResponse.of(mentoring.getId(), mentoring.getRoom().getMentee()))
                 .toList();
     }
+
+    public MentoringRecordUrlResponse getPreSignedUrlForMentoringRecord(final Long mentorId, final Long mentoringId) {
+        val mentoring = mentoringRepository.findMentoringByIdAndMentorId(mentoringId, mentoringId);
+        return null;
+    }
+
 }
