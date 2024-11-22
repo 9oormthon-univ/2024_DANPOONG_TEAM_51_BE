@@ -19,7 +19,7 @@ public class MentoringServiceRecordServiceImpl implements MentoringRecordService
     private final MentoringRepository mentoringRepository;
     private final S3Service s3Service;
 
-    public MentoringRecordUrlResponse getPreSignedUrlForMentoringRecord(final Long mentorId, final Long mentoringId) {
+    public MentoringRecordUrlResponse getPreSignedUrlForMentoringRecord(final Long mentoringId, final Long mentorId) {
         val mentoring = mentoringRepository.findMentoringByIdAndMentorIdOrThrow(mentoringId, mentoringId);
         val fileName = getMentoringRecordFileName(mentoring);
         val preSignedUrlVO = s3Service.getUploadPreSignedUrl(MENTORING_ORIGIN, fileName);

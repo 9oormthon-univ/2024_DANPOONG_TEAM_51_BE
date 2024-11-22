@@ -1,5 +1,6 @@
 package com.cone.cone.domain.mentorings.controller;
 
+import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD;
 import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_REQUEST_MENTORING;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 import static com.cone.cone.domain.user.entity.Role.MENTOR;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class MentoringController implements MentoringApi {
     private final MentoringService mentoringService;
+    private final MentoringRecordService mentoringRecordService;
 
     @SessionAuth
     @SessionRole(roles = MENTEE)
@@ -33,7 +35,8 @@ public class MentoringController implements MentoringApi {
     @GetMapping("/{mentoringId}/record")
     @Override
     public ResponseEntity<ResponseTemplate<MentoringRecordUrlResponse>> getPreSignedUrlForMentoringRecord(
-            @SessionId Long mentorId, @PathVariable("mentoringId") Long mentoringId) {
-        return null;
+            @PathVariable("mentoringId") Long mentoringId, @SessionId Long mentorId) {
+        val response = mentoringRecordService.getPreSignedUrlForMentoringRecord(mentoringId, mentorId);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD, response));
     }
 }
