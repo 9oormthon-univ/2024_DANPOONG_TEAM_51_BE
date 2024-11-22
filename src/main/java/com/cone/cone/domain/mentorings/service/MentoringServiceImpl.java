@@ -10,9 +10,13 @@ import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
 import com.cone.cone.external.aws.*;
 import java.util.*;
+
+import com.cone.cone.global.exception.CustomException;
 import lombok.*;
 import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
+
+import static com.cone.cone.domain.mentorings.code.MentoringExceptionCode.INVALID_REQUEST_USER;
 
 @Service
 @Transactional(readOnly = true)
@@ -60,5 +64,44 @@ public class MentoringServiceImpl implements MentoringService {
         return mentorings.stream()
                 .map(mentoring -> MentorMentoringResponse.of(mentoring.getId(), mentoring.getRoom().getMentee()))
                 .toList();
+    }
+
+    @Override
+    public MentoringTimeResponse bookingMentoring(Long userId, Long mentoringId, MentoringBookingRequest request) {
+        val mentoring = mentoringRepository.findByIdOrThrow(mentoringId);
+        if (!Objects.equals(mentoring.getRoom().getMentor().getId(), userId) && !Objects.equals(mentoring.getRoom().getMentee().getId(), userId)) {
+            throw new CustomException(INVALID_REQUEST_USER);
+        }
+
+        mentoring.updateTime(request.mentoringTime());
+        mentoringRepository.save(mentoring);
+        return MentoringTimeResponse.of(mentoring.getMentoringTime());
+    }
+
+    @Override
+    public void approveMentoring(Long mentorId, Long mentoringId) {
+        val mentoring = mentoringRepository.findByIdOrThrow(mentoringId);
+        if (!Objects.equals(mentoring.getRoom().getMentor().getId(), mentorId)) {
+            throw new CustomException(INVALID_REQUEST_USER);
+        }
+
+        mentoring.approve();
+
+        if (!mentoring.getRoom().getIsStable()) {
+            mentoring.getRoom().markAsStable();
+        }
+
+        mentoringRepository.save(mentoring);
+    }
+
+    @Override
+    public void rejectMentoring(Long mentorId, Long mentoringId, MentoringRejectRequest request) {
+        val mentoring = mentoringRepository.findByIdOrThrow(mentoringId);
+        if (!Objects.equals(mentoring.getRoom().getMentor().getId(), mentorId)) {
+            throw new CustomException(INVALID_REQUEST_USER);
+        }
+
+        mentoring.reject(request.rejectReason());
+        mentoringRepository.save(mentoring);
     }
 }

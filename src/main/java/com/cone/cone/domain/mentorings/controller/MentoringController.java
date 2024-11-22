@@ -1,8 +1,6 @@
 package com.cone.cone.domain.mentorings.controller;
 
-import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_CREATE_MENTORING_CONTENT;
-import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD;
-import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.SUCCESS_REQUEST_MENTORING;
+import static com.cone.cone.domain.mentorings.code.MentoringSuccessCode.*;
 import static com.cone.cone.domain.user.entity.Role.MENTEE;
 import static com.cone.cone.domain.user.entity.Role.MENTOR;
 
@@ -33,11 +31,38 @@ public class MentoringController implements MentoringApi {
     }
 
     @SessionAuth
+    @SessionRole(roles = {MENTOR, MENTEE})
+    @PutMapping("/{mentoringId}/time")
+    @Override
+    public ResponseEntity<ResponseTemplate<MentoringTimeResponse>> bookingMentoring(@SessionId Long userId, @PathVariable Long mentoringId, @RequestBody MentoringBookingRequest request) {
+        val response = mentoringService.bookingMentoring(userId, mentoringId, request);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_BOOKING_MENTORING_TIME, response));
+    }
+
+    @SessionAuth
+    @SessionRole(roles = MENTOR)
+    @PostMapping("/{mentoringId}/approve")
+    @Override
+    public ResponseEntity<ResponseTemplate<Void>> approveMentoring(@SessionId Long mentorId, @PathVariable Long mentoringId) {
+        mentoringService.approveMentoring(mentorId, mentoringId);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_APPROVE_MENTORING, null));
+    }
+
+    @SessionAuth
+    @SessionRole(roles = MENTOR)
+    @PostMapping("/{mentoringId}/reject")
+    @Override
+    public ResponseEntity<ResponseTemplate<Void>> rejectMentoring(@SessionId Long mentorId, @PathVariable Long mentoringId, @RequestBody MentoringRejectRequest request) {
+        mentoringService.rejectMentoring(mentorId, mentoringId, request);
+        return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REJECT_MENTORING, null));
+    }
+
+    @SessionAuth
     @SessionRole(roles = MENTOR)
     @GetMapping("/{mentoringId}/record")
     @Override
     public ResponseEntity<ResponseTemplate<MentoringRecordUrlResponse>> getPreSignedUrlForMentoringRecord(
-            @PathVariable("mentoringId") Long mentoringId, @SessionId Long mentorId) {
+            @PathVariable Long mentoringId, @SessionId Long mentorId) {
         val response = mentoringRecordService.getPreSignedUrlForMentoringRecord(mentoringId, mentorId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD, response));
     }
@@ -47,7 +72,7 @@ public class MentoringController implements MentoringApi {
     @PostMapping("/{mentoringId}/record")
     @Override
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> createMentoringRecordContent(
-            @PathVariable("mentoringId") Long mentoringId, @SessionId Long mentorId,
+            @PathVariable Long mentoringId, @SessionId Long mentorId,
             @Valid @RequestBody MentoringRecordRequest request) {
         val response = mentoringRecordService.createMentoringRecordContent(mentoringId, mentorId, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_CREATE_MENTORING_CONTENT, response));

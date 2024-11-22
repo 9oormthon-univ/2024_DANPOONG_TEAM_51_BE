@@ -8,6 +8,9 @@ import org.springframework.http.*;
 
 public interface MentoringApi {
     ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(Long menteeId, @Valid MentoringRequest request);
+    ResponseEntity<ResponseTemplate<MentoringTimeResponse>> bookingMentoring(Long userId, Long mentoringId, @Valid MentoringBookingRequest request);
+    ResponseEntity<ResponseTemplate<Void>> approveMentoring(Long mentorId, Long mentoringId);
+    ResponseEntity<ResponseTemplate<Void>> rejectMentoring(Long mentorId, Long mentoringId, @Valid MentoringRejectRequest request);
 
     ResponseEntity<ResponseTemplate<MentoringRecordUrlResponse>> getPreSignedUrlForMentoringRecord(Long mentoringId, Long mentorId);
 

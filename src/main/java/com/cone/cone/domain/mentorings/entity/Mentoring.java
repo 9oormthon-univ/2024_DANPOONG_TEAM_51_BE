@@ -28,14 +28,26 @@ public class Mentoring extends BaseTime {
 
     private String summarizedRecordFileName;
 
-    private Duration recordDuration;
-
     @Builder
     private Mentoring(Room room) {
+        super(LocalDateTime.now(), LocalDateTime.now());
         this.status = MentoringStatus.INREVIEW;
         this.room = room;
     }
 
+    public void updateTime(LocalDateTime time) {
+        this.mentoringTime = time;
+    }
+
+    public void approve() {
+        this.status = MentoringStatus.APPROVED;
+    }
+
+    public void reject(String rejectionReason) {
+        this.status = MentoringStatus.REJECTED;
+        this.rejectionReason = rejectionReason;
+    }
+  
     public void updateOriginalRecordFileName(String fileName) {
         this.originalRecordFileName = fileName;
     }
