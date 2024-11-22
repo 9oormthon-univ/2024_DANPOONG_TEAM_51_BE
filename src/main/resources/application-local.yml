@@ -1,5 +1,4 @@
 spring:
-
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:cone-local-db;DATABASE_TO_UPPER=FALSE;mode=mysql
@@ -25,3 +24,9 @@ socketio:
   server:
     hostname: localhost
     port: 8081
+
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: lax
