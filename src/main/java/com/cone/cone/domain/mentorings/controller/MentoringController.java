@@ -26,4 +26,19 @@ public class MentoringController implements MentoringApi {
         val response = mentoringService.requestMentoring(menteeId, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_REQUEST_MENTORING, response));
     }
+
+    @Override
+    public ResponseEntity<ResponseTemplate<MentoringTimeResponse>> bookingMentoring(Long userId, MentoringBookingRequest request) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<ResponseTemplate<Void>> approveMentoring(Long mentorId, Long mentoringId) {
+        return null;
+    }
+
+    @Override
+    public ResponseEntity<ResponseTemplate<Void>> rejectMentoring(Long mentorId, Long mentoringId, MentoringRejectRequest request) {
+        return null;
+    }
 }
