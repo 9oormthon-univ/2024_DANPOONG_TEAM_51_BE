@@ -1,14 +1,4 @@
-spring.config.activate.on-profile:
-  - local
-  - test
 socketio:
   server:
-    hostname: localhost
-    port: 8080
----
-spring.config.activate.on-profile:
-  - dev
-socketio:
-  server:
-    hostname: ${SOCKET_HOST}
-    port: ${SOCKET_PORT}
+    hostname: 0.0.0.0
+    port: 8081
