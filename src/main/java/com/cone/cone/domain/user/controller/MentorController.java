@@ -33,7 +33,6 @@ public class MentorController implements MentorApi{
     private final MentoringService mentoringService;
 
     @SessionAuth
-    @SessionRole(roles = MENTOR)
     @GetMapping("/me/rooms")
     public ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(@SessionId Long id) {
         final List<Room> rooms = roomService.getRoomsByMentorId(id);
@@ -41,7 +40,6 @@ public class MentorController implements MentorApi{
     }
 
     @SessionAuth
-    @SessionRole(roles = {MENTOR, MENTEE})
     @GetMapping("/{mentorId}")
     public ResponseEntity<ResponseTemplate<MentorProfileResponse>> getMentorProfile(@PathVariable("mentorId") Long mentorId) {
         val response = mentorService.getMentorProfile(mentorId);
@@ -49,7 +47,6 @@ public class MentorController implements MentorApi{
     }
 
     @SessionAuth
-    @SessionRole(roles = {MENTOR, MENTEE})
     @GetMapping
     public ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors() {
         val response = mentorService.getMentors();
@@ -57,7 +54,6 @@ public class MentorController implements MentorApi{
     }
 
     @SessionAuth
-    @SessionRole(roles = MENTOR)
     @GetMapping("/me/mentorings")
     public ResponseEntity<ResponseTemplate<List<MentorMentoringResponse>>> getMentorings(@SessionId Long id) {
         val response = mentoringService.getMentoringsByMentorId(id);

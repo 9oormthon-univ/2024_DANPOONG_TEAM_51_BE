@@ -8,7 +8,6 @@ import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
 import com.cone.cone.external.oauth.*;
 import com.cone.cone.external.oauth.dto.*;
-import com.cone.cone.global.exception.*;
 import jakarta.servlet.http.*;
 import java.util.*;
 import lombok.*;
@@ -54,7 +53,6 @@ public class AuthServiceImpl implements AuthService {
     public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
         val user = userRepository.findByIdOrThrow(userId);
         val role = request.role();
-
         Role.validateRole(role);
         user.changeRole(role);
         switch (role) {
