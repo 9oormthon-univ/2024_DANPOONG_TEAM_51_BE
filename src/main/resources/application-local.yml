@@ -27,11 +27,3 @@ spring:
     console:
       enabled: true
       path: /h2-console
-
-server:
-  port: 80
-  servlet:
-    session:
-      cookie:
-        same-site: lax
-        secure: false
