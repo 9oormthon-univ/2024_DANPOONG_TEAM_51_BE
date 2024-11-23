@@ -1,12 +1,11 @@
 package com.cone.cone.domain.room.service;
 
-import com.cone.cone.domain.room.dto.RoomCreateRequest;
 import com.cone.cone.domain.room.entity.Room;
 
 import java.util.List;
 
 public interface RoomService {
-    Room createRoom(RoomCreateRequest request);
+    Room createRoom(Long mentorId, Long menteeId);
     List<Room> getRoomsByMentorId(Long mentorId);
     List<Room> getRoomsByMenteeId(Long menteeId);
 }

@@ -8,7 +8,7 @@ import jakarta.servlet.http.*;
 public interface AuthService {
     RoleResponse login(HttpServletRequest httpServletRequest, LoginRequest request);
 
-    RoleResponse changeRole(HttpServletRequest httpServletRequest, Long userId, RoleRequest request);
+    RoleResponse updateRole(HttpServletRequest httpServletRequest, Long userId, RoleRequest request);
 
     User getUserById(Long id);
 }

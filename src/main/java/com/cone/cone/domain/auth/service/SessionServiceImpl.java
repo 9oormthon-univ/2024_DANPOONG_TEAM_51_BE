@@ -1,12 +1,11 @@
 package com.cone.cone.domain.auth.service;
 
-import static com.cone.cone.global.constant.SessionConstant.ID;
-import static com.cone.cone.global.constant.SessionConstant.ROLE;
-import static com.cone.cone.global.constant.SessionConstant.SESSION_TIMEOUT;
+import com.cone.cone.domain.user.entity.Role;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import org.springframework.stereotype.Service;
 
-import com.cone.cone.domain.user.entity.*;
-import jakarta.servlet.http.*;
-import org.springframework.stereotype.*;
+import static com.cone.cone.global.constant.SessionConstant.*;
 
 @Service
 public class SessionServiceImpl implements SessionService {
