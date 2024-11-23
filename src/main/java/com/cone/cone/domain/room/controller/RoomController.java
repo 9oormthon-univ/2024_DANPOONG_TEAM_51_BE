@@ -16,8 +16,6 @@ import java.util.List;
 
 import static com.cone.cone.domain.messages.code.MessageSuccessCode.SUCCESS_GET_MESSAGES;
 import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_CREATE_ROOM;
-import static com.cone.cone.domain.room.code.RoomSuccessCode.SUCCESS_GET_ROOMS;
-import static com.cone.cone.domain.user.entity.Role.MENTOR;
 
 @RestController
 @RequestMapping("/rooms")

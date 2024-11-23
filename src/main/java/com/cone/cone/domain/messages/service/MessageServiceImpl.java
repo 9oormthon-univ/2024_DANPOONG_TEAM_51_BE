@@ -30,6 +30,7 @@ public class MessageServiceImpl implements MessageService {
 
         final User sender = userRepository.findByIdOrThrow(senderId);
 
+        // TODO: 메시지 확인 로직 추가
         final Message newMessage = Message.builder()
                 .room(room)
                 .sender(sender)
