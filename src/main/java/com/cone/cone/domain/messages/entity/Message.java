@@ -29,10 +29,17 @@ public class Message {
     @Column(nullable = false, updatable = false)
     private String content;
 
+    @Column(nullable = false)
+    private boolean isViewed;
+
     @Builder
     private Message(Room room, User sender, String content) {
         this.room = room;
         this.sender = sender;
         this.content = content;
+    }
+
+    public void markAsViewed() {
+        this.isViewed = true;
     }
 }
