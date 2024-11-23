@@ -4,6 +4,7 @@ import com.cone.cone.domain.mentorings.dto.request.*;
 import com.cone.cone.domain.mentorings.dto.response.*;
 import com.cone.cone.domain.mentorings.entity.*;
 import com.cone.cone.domain.mentorings.repository.*;
+import com.cone.cone.domain.messages.service.MessageService;
 import com.cone.cone.domain.room.entity.*;
 import com.cone.cone.domain.room.repository.*;
 import com.cone.cone.domain.user.entity.*;
@@ -17,6 +18,10 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
 import static com.cone.cone.domain.mentorings.code.MentoringExceptionCode.INVALID_REQUEST_USER;
+import static com.cone.cone.domain.messages.constant.MessageConstant.MENTORING_APPROVED;
+import static com.cone.cone.domain.messages.constant.MessageConstant.ROOM_STABLED;
+import static com.cone.cone.domain.messages.entity.type.MessageType.NOTICE;
+import static com.cone.cone.domain.user.constant.UserConstant.SYSTEM_ID;
 
 @Service
 @Transactional(readOnly = true)
@@ -26,6 +31,7 @@ public class MentoringServiceImpl implements MentoringService {
     private final MentorRepository mentorRepository;
     private final MentoringRepository mentoringRepository;
     private final RoomRepository roomRepository;
+    private final MessageService messageService;
 
     @Transactional
     @Override
@@ -33,21 +39,22 @@ public class MentoringServiceImpl implements MentoringService {
         val mentee = menteeRepository.findByIdOrThrow(menteeId);
         val mentor = mentorRepository.findByIdOrThrow(request.mentorId());
         val room = roomRepository.findByMenteeAndMentor(mentee, mentor).orElse(
-                createNewRoom(mentee, mentor)
+                createRoom(mentee, mentor)
         );
+
         var mentoring = Mentoring.builder().room(room).build();
 
         mentoring = mentoringRepository.save(mentoring);
         return MentoringIdResponse.of(mentoring.getId());
     }
 
-    private Room createNewRoom(Mentee mentee, Mentor mentor) {
-        val room = Room.builder()
+    private Room createRoom(Mentee mentee, Mentor mentor) {
+        val newRoom = Room.builder()
                 .mentee(mentee)
                 .mentor(mentor)
                 .build();
-        roomRepository.save(room);
-        return room;
+
+        return roomRepository.save(newRoom);
     }
 
     public List<MenteeMentoringResponse> getMentoringsByMenteeId(final Long menteeId) {
@@ -81,16 +88,21 @@ public class MentoringServiceImpl implements MentoringService {
     @Override
     public void approveMentoring(Long mentorId, Long mentoringId) {
         val mentoring = mentoringRepository.findByIdOrThrow(mentoringId);
+
         if (!Objects.equals(mentoring.getRoom().getMentor().getId(), mentorId)) {
             throw new CustomException(INVALID_REQUEST_USER);
         }
 
-        mentoring.approve();
-
         if (!mentoring.getRoom().getIsStable()) {
             mentoring.getRoom().markAsStable();
+            // 채팅방 생성 메시지 전송
+            messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, ROOM_STABLED, NOTICE);
         }
 
+        // 멘토링 수락 메시지 전송
+        messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, MENTORING_APPROVED, NOTICE);
+
+        mentoring.approve();
         mentoringRepository.save(mentoring);
     }
 

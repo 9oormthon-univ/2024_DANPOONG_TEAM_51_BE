@@ -50,7 +50,6 @@ public class Room {
         this.isStable = false;
         this.mentorLastViewedAt = LocalDateTime.now();
         this.menteeLastViewedAt = LocalDateTime.now();
-        this.markAsStable();
     }
 
     public void markAsStable() {
