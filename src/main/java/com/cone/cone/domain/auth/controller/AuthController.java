@@ -28,7 +28,6 @@ public class AuthController implements AuthApi {
     }
 
     @SessionAuth
-    @SessionRole(roles = GUEST)
     @PatchMapping("/onboarding")
     public ResponseEntity<ResponseTemplate<RoleResponse>> onboarding(HttpServletRequest httpServletRequest,
                                                                      final @SessionId Long userId,

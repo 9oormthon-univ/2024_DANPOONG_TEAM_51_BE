@@ -22,7 +22,6 @@ public class MentoringController implements MentoringApi {
     private final MentoringRecordService mentoringRecordService;
 
     @SessionAuth
-    @SessionRole(roles = MENTEE)
     @PostMapping
     @Override
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> requestMentoring(@SessionId Long menteeId, @RequestBody MentoringRequest request) {
@@ -31,7 +30,6 @@ public class MentoringController implements MentoringApi {
     }
 
     @SessionAuth
-    @SessionRole(roles = {MENTOR, MENTEE})
     @PutMapping("/{mentoringId}/time")
     @Override
     public ResponseEntity<ResponseTemplate<MentoringTimeResponse>> bookingMentoring(@SessionId Long userId, @PathVariable Long mentoringId, @RequestBody MentoringBookingRequest request) {
@@ -40,7 +38,6 @@ public class MentoringController implements MentoringApi {
     }
 
     @SessionAuth
-    @SessionRole(roles = MENTOR)
     @PostMapping("/{mentoringId}/approve")
     @Override
     public ResponseEntity<ResponseTemplate<Void>> approveMentoring(@SessionId Long mentorId, @PathVariable Long mentoringId) {
@@ -49,7 +46,6 @@ public class MentoringController implements MentoringApi {
     }
 
     @SessionAuth
-    @SessionRole(roles = MENTOR)
     @PostMapping("/{mentoringId}/reject")
     @Override
     public ResponseEntity<ResponseTemplate<Void>> rejectMentoring(@SessionId Long mentorId, @PathVariable Long mentoringId, @RequestBody MentoringRejectRequest request) {
@@ -58,7 +54,6 @@ public class MentoringController implements MentoringApi {
     }
 
     @SessionAuth
-    @SessionRole(roles = MENTOR)
     @GetMapping("/{mentoringId}/record")
     @Override
     public ResponseEntity<ResponseTemplate<MentoringRecordUrlResponse>> getPreSignedUrlForMentoringRecord(
@@ -68,7 +63,6 @@ public class MentoringController implements MentoringApi {
     }
 
     @SessionAuth
-    @SessionRole(roles = MENTOR)
     @PostMapping("/{mentoringId}/record")
     @Override
     public ResponseEntity<ResponseTemplate<MentoringIdResponse>> createMentoringRecordContent(
