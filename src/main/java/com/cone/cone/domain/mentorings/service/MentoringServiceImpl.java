@@ -81,10 +81,10 @@ public class MentoringServiceImpl implements MentoringService {
             throw new CustomException(INVALID_MENTORING_USER);
         }
 
-        mentoring.updateTime(request.mentoringTime());
+        mentoring.updateTime(request.time());
 
         // 멘토링 시간 예약 메시지 생성 및 전송
-        val message = MENTORING_TIME_BOOKED + request.mentoringTime().format(DateTimeFormatter.ofPattern("MM월 dd일(E) a HH:mm"));
+        val message = MENTORING_TIME_BOOKED + request.time().format(DateTimeFormatter.ofPattern("MM월 dd일(E) a HH:mm"));
         messageService.createMessage(
                 mentoring.getRoom().getId(),
                 SYSTEM_ID,

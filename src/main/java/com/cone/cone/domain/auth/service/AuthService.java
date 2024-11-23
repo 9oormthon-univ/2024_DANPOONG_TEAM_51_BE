@@ -10,5 +10,5 @@ public interface AuthService {
 
     RoleResponse updateRole(HttpServletRequest httpServletRequest, Long userId, RoleRequest request);
 
-    User getUserById(Long id);
+    UserResponse getUserById(Long id);
 }

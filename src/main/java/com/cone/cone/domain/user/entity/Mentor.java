@@ -44,14 +44,6 @@ public class Mentor {
         this.status = MentorStatus.INREVIEW;
     }
 
-    public String getName() {
-        return user.getName();
-    }
-
-    public String getProfileImgUrl() {
-        return user.getProfileImgUrl();
-    }
-
     public List<String> getKeywords() {
         if(keywords == null) {
             return null;

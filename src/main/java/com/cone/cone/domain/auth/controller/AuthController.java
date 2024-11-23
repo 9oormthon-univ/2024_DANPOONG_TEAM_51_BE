@@ -4,7 +4,7 @@ import com.cone.cone.domain.auth.service.AuthService;
 import com.cone.cone.domain.user.dto.request.LoginRequest;
 import com.cone.cone.domain.user.dto.request.RoleRequest;
 import com.cone.cone.domain.user.dto.response.RoleResponse;
-import com.cone.cone.domain.user.entity.User;
+import com.cone.cone.domain.user.dto.response.UserResponse;
 import com.cone.cone.global.annotation.SessionAuth;
 import com.cone.cone.global.annotation.SessionId;
 import com.cone.cone.global.response.ResponseTemplate;
@@ -45,7 +45,7 @@ public class AuthController implements AuthApi {
 
     @SessionAuth
     @GetMapping("/me")
-    public ResponseEntity<ResponseTemplate<User>> getMyInfo(
+    public ResponseEntity<ResponseTemplate<UserResponse>> getMyInfo(
             final HttpServletRequest httpServletRequest,
             final @SessionId Long id
     ) {

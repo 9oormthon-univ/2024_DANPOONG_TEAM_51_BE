@@ -3,6 +3,7 @@ package com.cone.cone.domain.auth.service;
 import com.cone.cone.domain.user.dto.request.LoginRequest;
 import com.cone.cone.domain.user.dto.request.RoleRequest;
 import com.cone.cone.domain.user.dto.response.RoleResponse;
+import com.cone.cone.domain.user.dto.response.UserResponse;
 import com.cone.cone.domain.user.entity.Mentee;
 import com.cone.cone.domain.user.entity.Mentor;
 import com.cone.cone.domain.user.entity.Role;
@@ -83,7 +84,8 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findByIdOrThrow(id);
+    public UserResponse getUserById(Long id) {
+        val user = userRepository.findByIdOrThrow(id);
+        return UserResponse.from(user);
     }
 }

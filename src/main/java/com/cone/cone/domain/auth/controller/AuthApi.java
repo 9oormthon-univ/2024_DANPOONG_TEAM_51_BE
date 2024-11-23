@@ -3,7 +3,7 @@ package com.cone.cone.domain.auth.controller;
 import com.cone.cone.domain.user.dto.request.LoginRequest;
 import com.cone.cone.domain.user.dto.request.RoleRequest;
 import com.cone.cone.domain.user.dto.response.RoleResponse;
-import com.cone.cone.domain.user.entity.User;
+import com.cone.cone.domain.user.dto.response.UserResponse;
 import com.cone.cone.global.response.ResponseTemplate;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -14,5 +14,5 @@ public interface AuthApi {
 
     ResponseEntity<ResponseTemplate<RoleResponse>> onboarding(HttpServletRequest httpServletRequest, Long userId, @Valid RoleRequest request);
 
-    ResponseEntity<ResponseTemplate<User>> getMyInfo(HttpServletRequest httpServletRequest, Long id);
+    ResponseEntity<ResponseTemplate<UserResponse>> getMyInfo(HttpServletRequest httpServletRequest, Long id);
 }

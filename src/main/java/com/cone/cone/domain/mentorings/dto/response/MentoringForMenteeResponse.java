@@ -1,17 +1,16 @@
 package com.cone.cone.domain.mentorings.dto.response;
 
-import com.cone.cone.domain.user.entity.*;
-import java.util.*;
+import com.cone.cone.domain.user.dto.response.MentorResponse;
+import com.cone.cone.domain.user.entity.Mentor;
 
 public record MentoringForMenteeResponse(
-        Long mentoringId,
-        Long mentorId,
-        String mentorProfileImgUrl,
-        String mentorName,
-        List<String> keywords
+        Long id,
+        MentorResponse mentor
 ) {
-    public static MentoringForMenteeResponse of(Long mentoringId, Mentor mentor) {
-        return new MentoringForMenteeResponse(mentoringId, mentor.getId(), mentor.getProfileImgUrl(),
-                mentor.getName(), mentor.getKeywords());
+    public static MentoringForMenteeResponse of(Long id, Mentor mentor) {
+        return new MentoringForMenteeResponse(
+                id,
+                MentorResponse.from(mentor)
+        );
     }
 }

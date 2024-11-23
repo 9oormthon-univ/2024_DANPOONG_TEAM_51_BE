@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public record MentoringBookingRequest(
-        @NotNull LocalDateTime mentoringTime
+        @NotNull LocalDateTime time
         ) {
 }

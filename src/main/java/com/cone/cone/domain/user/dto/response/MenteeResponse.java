@@ -6,9 +6,7 @@ import java.util.*;
 
 public record MenteeResponse(
         Long id,
-        String name,
-        String profileImgUrl,
-        Role role,
+        UserResponse user,
         String concernSummary,
         String concernDetail,
         String mentorPreference,
@@ -17,9 +15,7 @@ public record MenteeResponse(
     public static MenteeResponse from(Mentee mentee) {
         return new MenteeResponse(
                 mentee.getId(),
-                mentee.getName(),
-                mentee.getProfileImgUrl(),
-                mentee.getUser().getRole(),
+                UserResponse.from(mentee.getUser()),
                 mentee.getConcernSummary(),
                 mentee.getConcernDetail(),
                 mentee.getMentorPreference(),
