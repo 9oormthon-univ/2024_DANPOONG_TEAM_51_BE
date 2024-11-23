@@ -3,5 +3,5 @@ package com.cone.cone.domain.user.service;
 import com.cone.cone.domain.user.dto.response.*;
 
 public interface MenteeService {
-    MenteeProfileResponse getMenteeProfile(Long menteeId);
+    MenteeResponse getMenteeProfile(Long menteeId);
 }

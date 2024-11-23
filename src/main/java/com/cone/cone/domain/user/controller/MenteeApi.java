@@ -11,7 +11,7 @@ import java.util.List;
 public interface MenteeApi {
     ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(Long id);
 
-    ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(Long menteeId);
+    ResponseEntity<ResponseTemplate<MenteeResponse>> getMenteeProfile(Long menteeId);
 
     ResponseEntity<ResponseTemplate<List<MentoringForMenteeResponse>>> getMentoringsForMentee(Long menteeId);
 }
