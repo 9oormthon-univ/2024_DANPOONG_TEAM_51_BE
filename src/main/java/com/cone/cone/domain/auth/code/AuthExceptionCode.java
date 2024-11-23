@@ -12,6 +12,7 @@ public enum AuthExceptionCode implements ExceptionCode {
     UNAUTHORIZED_TOKEN(HttpStatus.UNAUTHORIZED, "기한이 만료된 토큰입니다."),
     INVALID_REQUEST_LOGIN(HttpStatus.BAD_REQUEST, "올바르지 않은 로그인 요청입니다"),
     INVALID_REQUEST_SOCIAL_LOGIN(HttpStatus.BAD_REQUEST, "올바르지 않은 소셜 로그인 요청입니다"),
+    INVALID_TOKEN_USE(HttpStatus.UNAUTHORIZED, "인증되지 않은 사용자입니다")
     ;
 
     private final HttpStatus status;
