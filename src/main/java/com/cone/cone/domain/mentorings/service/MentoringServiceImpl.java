@@ -14,6 +14,8 @@ import com.cone.cone.external.aws.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import com.cone.cone.external.socket.ChatFacade;
+import com.cone.cone.external.socket.dto.SocketMessage;
 import com.cone.cone.global.exception.CustomException;
 import lombok.*;
 import org.springframework.stereotype.*;
@@ -33,6 +35,7 @@ public class MentoringServiceImpl implements MentoringService {
     private final MentoringRepository mentoringRepository;
     private final RoomRepository roomRepository;
     private final MessageService messageService;
+    private final ChatFacade chatFacade;
 
     @Transactional
     @Override
@@ -83,14 +86,16 @@ public class MentoringServiceImpl implements MentoringService {
 
         mentoring.updateTime(request.mentoringTime());
 
-        // 멘토링 시간 예약 메시지 전송
+        // 멘토링 시간 예약 메시지 생성 및 전송
+        val message = MENTORING_TIME_BOOKED + request.mentoringTime().format(DateTimeFormatter.ofPattern("MM월 dd일(E) a HH:mm"));
         messageService.createMessage(
                 mentoring.getRoom().getId(),
                 SYSTEM_ID,
-                MENTORING_TIME_BOOKED + request.mentoringTime().format(DateTimeFormatter.ofPattern("MM월 dd일(E) a HH:mm")),
+                message,
                 NOTICE
         );
-        // TODO: socket 호출
+        SocketMessage socketMessage = SocketMessage.of(SYSTEM_ID, message);
+        chatFacade.broadcastMessageByRoomId(mentoring.getRoom().getId(), socketMessage);
 
         mentoringRepository.save(mentoring);
         return MentoringTimeResponse.of(mentoring.getMentoringTime());
@@ -106,14 +111,16 @@ public class MentoringServiceImpl implements MentoringService {
 
         if (!mentoring.getRoom().getIsStable()) {
             mentoring.getRoom().markAsStable();
-            // 채팅방 생성 메시지 전송
+            // 채팅방 생성 메시지 생성 및 전송
             messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, ROOM_STABLED, NOTICE);
-            // TODO: socket 호출
+            SocketMessage socketMessage = SocketMessage.of(SYSTEM_ID, ROOM_STABLED);
+            chatFacade.broadcastMessageByRoomId(mentoring.getRoom().getId(), socketMessage);
         }
 
-        // 멘토링 수락 메시지 전송
+        // 멘토링 수락 메시지 생성 및 전송
         messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, MENTORING_APPROVED, NOTICE);
-        // TODO: socket 호출
+        SocketMessage socketMessage = SocketMessage.of(SYSTEM_ID, MENTORING_APPROVED);
+        chatFacade.broadcastMessageByRoomId(mentoring.getRoom().getId(), socketMessage);
 
         mentoring.approve();
         mentoringRepository.save(mentoring);
