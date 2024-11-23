@@ -14,6 +14,6 @@ public interface MentorRepository extends JpaRepository<Mentor, Long> {
         return findById(mentorId).orElseThrow(() -> new CustomException(NOT_FOUND_MENTOR));
     }
 
-    @Query("select m from Mentor m where m.mentorStatus = com.cone.cone.domain.user.entity.MentorStatus.APPROVED")
+    @Query("select m from Mentor m where m.status = com.cone.cone.domain.user.entity.MentorStatus.APPROVED")
     List<Mentor> findApprovedMentors();
 }
