@@ -1,8 +1,8 @@
 package com.cone.cone.domain.auth.service;
 
-import static com.cone.cone.global.constant.SessionConstant.ID;
-import static com.cone.cone.global.constant.SessionConstant.ROLE;
-import static com.cone.cone.global.constant.SessionConstant.SESSION_TIMEOUT;
+import static com.cone.cone.global.constant.AuthConstant.ID;
+import static com.cone.cone.global.constant.AuthConstant.ROLE;
+import static com.cone.cone.global.constant.AuthConstant.SESSION_TIMEOUT;
 
 import com.cone.cone.domain.user.entity.*;
 import jakarta.servlet.http.*;

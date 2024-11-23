@@ -40,6 +40,9 @@ dependencies {
 	implementation("software.amazon.awssdk:bom:2.21.0")
 	implementation("software.amazon.awssdk:s3:2.21.0")
 
+	// jwt
+	implementation("com.auth0:java-jwt:4.2.1")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
