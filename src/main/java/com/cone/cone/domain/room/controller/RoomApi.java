@@ -1,8 +1,6 @@
 package com.cone.cone.domain.room.controller;
 
 import com.cone.cone.domain.messages.entity.Message;
-import com.cone.cone.domain.room.dto.RoomCreateRequest;
-import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.global.response.ResponseTemplate;
 import org.springframework.http.ResponseEntity;
 

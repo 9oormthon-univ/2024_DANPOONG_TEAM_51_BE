@@ -13,5 +13,5 @@ public interface MenteeApi {
 
     ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(Long menteeId);
 
-    ResponseEntity<ResponseTemplate<List<MenteeMentoringResponse>>> getMentoringsForMentee(Long menteeId);
+    ResponseEntity<ResponseTemplate<List<MentoringForMenteeResponse>>> getMentoringsForMentee(Long menteeId);
 }

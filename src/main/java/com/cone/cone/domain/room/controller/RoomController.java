@@ -18,7 +18,7 @@ public class RoomController implements RoomApi {
     private final MessageService messageService;
 
     @GetMapping("/{id}/messages")
-    public ResponseEntity<ResponseTemplate<List<Message>>> getMessagesById(@PathVariable Long id) {
+    public ResponseEntity<ResponseTemplate<List<Message>>> getMessagesById(final @PathVariable Long id) {
         final List<Message> messages = messageService.getMessagesByRoomId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MESSAGES, messages));
     }
