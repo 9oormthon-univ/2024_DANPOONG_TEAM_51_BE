@@ -26,5 +26,5 @@ server:
   servlet:
     session:
       cookie:
-        same-site: lax
-        secure: false
+        same-site: None
+        secure: true
