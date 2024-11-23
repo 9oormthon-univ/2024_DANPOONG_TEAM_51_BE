@@ -6,15 +6,11 @@ import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.UserRepository;
-import com.cone.cone.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-
-import static com.cone.cone.domain.room.code.RoomExceptionCode.NOT_FOUND_ROOM;
-import static com.cone.cone.domain.user.code.UserExceptionCode.NOT_FOUND_USER;
 
 @Service
 @RequiredArgsConstructor
@@ -30,7 +26,6 @@ public class MessageServiceImpl implements MessageService {
 
         final User sender = userRepository.findByIdOrThrow(senderId);
 
-        // TODO: 메시지 확인 로직 추가
         final Message newMessage = Message.builder()
                 .room(room)
                 .sender(sender)
