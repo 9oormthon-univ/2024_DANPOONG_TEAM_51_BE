@@ -1,6 +1,5 @@
 package com.cone.cone.external.socket.controller;
 
-import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.domain.messages.service.MessageService;
 import com.cone.cone.external.socket.ChatFacade;
 import com.cone.cone.external.socket.SocketService;
@@ -35,7 +34,7 @@ public class SocketIOController {
       server.addConnectListener(onConnected());
       server.addDisconnectListener(onDisconnected());
       server.addEventListener(MESSAGE, SocketMessage.class, onMessage());
-      server.addEventListener(PRE_OFFER, NullType.class, onPreOffer());
+      server.addEventListener(PRE_OFFER, SignalingData.class, onPreOffer());
       server.addEventListener(OFFER, SignalingData.class, onOffer());
       server.addEventListener(ANSWER, SignalingData.class, onAnswer());
       server.addEventListener(CANDIDATE, SignalingData.class, onCandidate());
@@ -52,7 +51,7 @@ public class SocketIOController {
       };
    }
 
-   private DataListener<NullType> onPreOffer() {
+   private DataListener<SignalingData> onPreOffer() {
       return (client, data, ack) -> {
          log.info("Event[{}] from Socket Id[{}] - {}", PRE_OFFER, client.getSessionId(), data.toString());
          String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
