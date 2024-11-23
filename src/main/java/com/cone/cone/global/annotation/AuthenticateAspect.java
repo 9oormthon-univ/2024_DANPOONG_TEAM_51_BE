@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 import static com.cone.cone.global.code.CommonExceptionCode.AUTHENTICATION_REQUIRED;
-import static com.cone.cone.global.constant.SessionConstant.ID;
+import static com.cone.cone.global.constant.AuthConstant.ID;
 
 @Aspect
 @Component

@@ -6,9 +6,9 @@ import com.cone.cone.domain.user.entity.User;
 import jakarta.servlet.http.*;
 
 public interface AuthService {
-    RoleResponse login(HttpServletRequest httpServletRequest, LoginRequest request);
+    AuthResponse login(HttpServletRequest httpServletRequest, LoginRequest request);
 
-    RoleResponse changeRole(HttpServletRequest httpServletRequest, Long userId, RoleRequest request);
+    AuthResponse changeRole(HttpServletRequest httpServletRequest, Long userId, RoleRequest request);
 
     User getUserById(Long id);
 }

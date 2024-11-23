@@ -6,9 +6,9 @@ import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
+import com.cone.cone.external.jwt.*;
 import com.cone.cone.external.oauth.*;
 import com.cone.cone.external.oauth.dto.*;
-import com.cone.cone.global.exception.*;
 import jakarta.servlet.http.*;
 import java.util.*;
 import lombok.*;
@@ -23,16 +23,16 @@ public class AuthServiceImpl implements AuthService {
     private final MenteeRepository menteeRepository;
     private final MentorRepository mentorRepository;
     private final OAuthPlatformService oAuthPlatformService;
-    private final SessionService sessionService;
+    private final JwtService jwtService;
 
-    public RoleResponse login(HttpServletRequest httpServletRequest, LoginRequest request) {
+    public AuthResponse login(HttpServletRequest httpServletRequest, LoginRequest request) {
         UserInfoResponse userInfo = oAuthPlatformService.getUserInfo(request.platformType(), request.code());
         Optional<User> existingUser = userRepository.findByPlatformId(userInfo.id());
 
         if (existingUser.isPresent()) {
             User user = existingUser.get();
-            createSession(httpServletRequest, user);
-            return RoleResponse.of(user.getRole());
+            val issueToken = jwtService.issueToken(user.getId(), List.of(user.getRole().name()));
+            return new AuthResponse(user.getId(), user.getRole(), issueToken.accessToken());
         } else {
             User newUser = User.builder()
                     .role(GUEST)
@@ -42,16 +42,12 @@ public class AuthServiceImpl implements AuthService {
                     .profileImgUrl(userInfo.profileUrl())
                     .build();
             userRepository.save(newUser);
-            createSession(httpServletRequest, newUser);
-            return new RoleResponse(newUser.getRole());
+            val issueToken = jwtService.issueToken(newUser.getId(), List.of(newUser.getRole().name()));
+            return new AuthResponse(newUser.getId(), newUser.getRole(), issueToken.accessToken());
         }
     }
 
-    private void createSession(HttpServletRequest httpServletRequest, User user) {
-        sessionService.generateSession(httpServletRequest, user.getId(), user.getRole());
-    }
-
-    public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
+    public AuthResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
         val user = userRepository.findByIdOrThrow(userId);
         val role = request.role();
 
@@ -61,8 +57,8 @@ public class AuthServiceImpl implements AuthService {
             case MENTEE -> menteeRepository.save(createMentee(user));
             case MENTOR -> mentorRepository.save(createMentor(user));
         }
-        sessionService.generateSession(httpServletRequest, userId, user.getRole());
-        return RoleResponse.of(user.getRole());
+        val issueToken = jwtService.issueToken(user.getId(), List.of(user.getRole().name()));
+        return new AuthResponse(user.getId(), user.getRole(), issueToken.accessToken());
     }
 
     private Mentee createMentee(User user) {

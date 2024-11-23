@@ -7,10 +7,12 @@ import com.cone.cone.domain.auth.service.*;
 import com.cone.cone.domain.user.dto.request.*;
 import com.cone.cone.domain.user.dto.response.*;
 import com.cone.cone.domain.user.entity.*;
+import com.cone.cone.external.jwt.*;
 import com.cone.cone.global.annotation.*;
 import com.cone.cone.global.response.*;
 import jakarta.servlet.http.*;
 import jakarta.validation.*;
+import java.util.*;
 import lombok.*;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -20,9 +22,10 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class AuthController implements AuthApi {
     private final AuthService authService;
+    private final JwtService jwtService;
 
     @PostMapping("/social/login")
-    public ResponseEntity<ResponseTemplate<RoleResponse>> login(HttpServletRequest httpServletRequest, final @RequestBody @Valid LoginRequest request) {
+    public ResponseEntity<ResponseTemplate<AuthResponse>> login(HttpServletRequest httpServletRequest, final @RequestBody @Valid LoginRequest request) {
         val response = authService.login(httpServletRequest, request);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_SOCIAL_LOGIN, response));
     }
@@ -30,7 +33,7 @@ public class AuthController implements AuthApi {
     @SessionAuth
     @SessionRole(roles = GUEST)
     @PatchMapping("/onboarding")
-    public ResponseEntity<ResponseTemplate<RoleResponse>> onboarding(HttpServletRequest httpServletRequest,
+    public ResponseEntity<ResponseTemplate<AuthResponse>> onboarding(HttpServletRequest httpServletRequest,
                                                                      final @SessionId Long userId,
                                                                      final @RequestBody @Valid RoleRequest request) {
         val response = authService.changeRole(httpServletRequest, userId, request);

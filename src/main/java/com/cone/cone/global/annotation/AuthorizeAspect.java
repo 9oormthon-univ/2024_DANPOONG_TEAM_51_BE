@@ -17,7 +17,7 @@ import java.util.Arrays;
 
 import static com.cone.cone.global.code.CommonExceptionCode.AUTHENTICATION_REQUIRED;
 import static com.cone.cone.global.code.CommonExceptionCode.INVALID_AUTHORITY;
-import static com.cone.cone.global.constant.SessionConstant.ROLE;
+import static com.cone.cone.global.constant.AuthConstant.ROLE;
 
 @Aspect
 @Component
