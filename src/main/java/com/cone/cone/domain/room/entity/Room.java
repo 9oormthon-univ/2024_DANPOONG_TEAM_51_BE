@@ -3,11 +3,12 @@ package com.cone.cone.domain.room.entity;
 import com.cone.cone.domain.user.entity.Mentee;
 import com.cone.cone.domain.user.entity.Mentor;
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
-import lombok.*;
-import org.hibernate.annotations.*;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnDefault;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import static jakarta.persistence.GenerationType.IDENTITY;
@@ -35,7 +36,7 @@ public class Room {
     private Mentee mentee;
 
     @ColumnDefault("false")
-    private Boolean isStable;
+    private boolean isStable;
 
     @Column(nullable = false)
     private LocalDateTime mentorLastViewedAt;

@@ -1,15 +1,13 @@
 package com.cone.cone.domain.user.entity;
 
-import static com.cone.cone.global.constant.DomainConstant.COMMA;
-
 import com.cone.cone.global.base.BaseTime;
 import jakarta.persistence.*;
-import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.*;
-import java.util.stream.*;
-import lombok.*;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -19,7 +17,7 @@ public class User extends BaseTime {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String name;
 
     private String profileImgUrl;
 
@@ -33,9 +31,9 @@ public class User extends BaseTime {
     private Role role;
 
     @Builder
-    private User(Role role, PlatformType platformType, String platformId, String username, String profileImgUrl) {
+    private User(Role role, PlatformType platformType, String platformId, String name, String profileImgUrl) {
         super(LocalDateTime.now(), LocalDateTime.now());
-        this.username = username;
+        this.name = name;
         this.profileImgUrl = profileImgUrl;
         this.platformType = platformType;
         this.platformId = platformId;

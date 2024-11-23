@@ -1,6 +1,6 @@
 package com.cone.cone.domain.room.service;
 
-import com.cone.cone.domain.room.dto.RoomCreateRequest;
+import com.cone.cone.domain.room.dto.RoomResponse;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
 import com.cone.cone.domain.user.entity.Mentee;
@@ -9,6 +9,7 @@ import com.cone.cone.domain.user.repository.MenteeRepository;
 import com.cone.cone.domain.user.repository.MentorRepository;
 import com.cone.cone.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,11 +26,9 @@ public class RoomServiceImpl implements RoomService{
     private final MenteeRepository menteeRepository;
 
     @Transactional
-    public Room createRoom(final RoomCreateRequest request) {
-        final Mentor mentor = mentorRepository.findByIdOrThrow(request.mentorId());
-
-        final Mentee mentee = menteeRepository.findByIdOrThrow(request.menteeId());
-
+    public Room createRoom(final Long mentorId, final Long menteeId) {
+        final Mentor mentor = mentorRepository.findByIdOrThrow(mentorId);
+        final Mentee mentee = menteeRepository.findByIdOrThrow(menteeId);
         if (roomRepository.existsByMentorAndMentee(mentor, mentee)) {
             throw new CustomException(ALREADY_EXIST_ROOM);
         }
@@ -42,15 +41,15 @@ public class RoomServiceImpl implements RoomService{
         return roomRepository.save(newRoom);
     }
 
-    public List<Room> getRoomsByMentorId(Long mentorId) {
+    public List<RoomResponse> getRoomsByMentorId(final Long mentorId) {
         final Mentor mentor = mentorRepository.findByIdOrThrow(mentorId);
-
-        return roomRepository.findAllByMentor(mentor);
+        val rooms = roomRepository.findAllByMentor(mentor);
+        return rooms.stream().map(RoomResponse::from).toList();
     }
 
-    public List<Room> getRoomsByMenteeId(Long menteeId) {
+    public List<RoomResponse> getRoomsByMenteeId(final Long menteeId) {
         final Mentee mentee = menteeRepository.findByIdOrThrow(menteeId);
-
-        return roomRepository.findAllByMentee(mentee);
+        val rooms = roomRepository.findAllByMentee(mentee);
+        return rooms.stream().map(RoomResponse::from).toList();
     }
 }

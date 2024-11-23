@@ -1,11 +1,9 @@
 package com.cone.cone.domain.mentorings.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
-import java.time.LocalDateTime;
+import jakarta.validation.constraints.Size;
 
 public record MentoringRejectRequest(
-        @NotBlank String rejectReason
+        @NotBlank @Size(max = 255) String rejectReason
         ) {
 }

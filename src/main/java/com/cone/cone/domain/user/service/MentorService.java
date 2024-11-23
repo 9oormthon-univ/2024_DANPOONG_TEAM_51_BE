@@ -4,7 +4,7 @@ import com.cone.cone.domain.user.dto.response.*;
 import java.util.*;
 
 public interface MentorService {
-    MentorProfileResponse getMentorProfile(Long mentorId);
+    MentorResponse getMentorProfile(Long mentorId);
 
     List<MentorResponse> getMentors();
 }

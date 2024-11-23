@@ -1,10 +1,12 @@
 package com.cone.cone.global.config;
 
-import com.cone.cone.global.annotation.*;
-import java.util.*;
-import org.springframework.context.annotation.*;
-import org.springframework.web.method.support.*;
-import org.springframework.web.servlet.config.annotation.*;
+import com.cone.cone.global.annotation.SessionIdArgumentResolver;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.method.support.HandlerMethodArgumentResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 import static org.springframework.http.HttpHeaders.LOCATION;
 
@@ -25,7 +27,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(final CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173", "https://localhost:5173", "wss://localhost:5173")
+                .allowedOrigins("http://localhost:5173", "https://localhost:5173")
                 .allowedMethods("*")
                 .allowCredentials(true)
                 .exposedHeaders(LOCATION);

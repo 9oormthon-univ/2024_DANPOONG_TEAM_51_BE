@@ -1,11 +1,12 @@
 package com.cone.cone.domain.messages.service;
 
+import com.cone.cone.domain.messages.dto.MessageResponse;
 import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.domain.messages.entity.type.MessageType;
 import com.cone.cone.domain.messages.repository.MessageRepository;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
-import com.cone.cone.domain.user.entity.*;
+import com.cone.cone.domain.user.entity.User;
 import com.cone.cone.domain.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,9 +38,9 @@ public class MessageServiceImpl implements MessageService {
         return messageRepository.save(newMessage);
     }
 
-    public List<Message> getMessagesByRoomId(Long roomId) {
+    public List<MessageResponse> getMessagesByRoomId(Long roomId) {
         final Room room = roomRepository.findByIdOrThrow(roomId);
-
-        return messageRepository.findAllByRoom(room);
+        final List<Message> messages = messageRepository.findAllByRoom(room);
+        return messages.stream().map(MessageResponse::from).toList();
     }
 }

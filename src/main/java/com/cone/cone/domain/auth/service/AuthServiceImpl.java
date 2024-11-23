@@ -1,18 +1,27 @@
 package com.cone.cone.domain.auth.service;
 
-import static com.cone.cone.domain.user.entity.Role.GUEST;
+import com.cone.cone.domain.user.dto.request.LoginRequest;
+import com.cone.cone.domain.user.dto.request.RoleRequest;
+import com.cone.cone.domain.user.dto.response.RoleResponse;
+import com.cone.cone.domain.user.dto.response.UserResponse;
+import com.cone.cone.domain.user.entity.Mentee;
+import com.cone.cone.domain.user.entity.Mentor;
+import com.cone.cone.domain.user.entity.Role;
+import com.cone.cone.domain.user.entity.User;
+import com.cone.cone.domain.user.repository.MenteeRepository;
+import com.cone.cone.domain.user.repository.MentorRepository;
+import com.cone.cone.domain.user.repository.UserRepository;
+import com.cone.cone.external.oauth.OAuthPlatformService;
+import com.cone.cone.external.oauth.dto.UserInfoResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.cone.cone.domain.user.dto.request.*;
-import com.cone.cone.domain.user.dto.response.*;
-import com.cone.cone.domain.user.entity.*;
-import com.cone.cone.domain.user.repository.*;
-import com.cone.cone.external.oauth.*;
-import com.cone.cone.external.oauth.dto.*;
-import jakarta.servlet.http.*;
-import java.util.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import java.util.Optional;
+
+import static com.cone.cone.domain.user.entity.Role.GUEST;
 
 @Service
 @Transactional
@@ -37,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
                     .role(GUEST)
                     .platformType(request.platformType())
                     .platformId(userInfo.id())
-                    .username(userInfo.nickname())
+                    .name(userInfo.nickname())
                     .profileImgUrl(userInfo.profileUrl())
                     .build();
             userRepository.save(newUser);
@@ -50,7 +59,7 @@ public class AuthServiceImpl implements AuthService {
         sessionService.generateSession(httpServletRequest, user.getId(), user.getRole());
     }
 
-    public RoleResponse changeRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
+    public RoleResponse updateRole(HttpServletRequest httpServletRequest, final Long userId, RoleRequest request) {
         val user = userRepository.findByIdOrThrow(userId);
         val role = request.role();
         Role.validateRole(role);
@@ -75,7 +84,8 @@ public class AuthServiceImpl implements AuthService {
                 .build();
     }
 
-    public User getUserById(Long id) {
-        return userRepository.findByIdOrThrow(id);
+    public UserResponse getUserById(Long id) {
+        val user = userRepository.findByIdOrThrow(id);
+        return UserResponse.from(user);
     }
 }
