@@ -1,6 +1,5 @@
 package com.cone.cone.domain.room.service;
 
-import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.domain.room.dto.RoomCreateRequest;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
@@ -16,8 +15,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 import static com.cone.cone.domain.room.code.RoomExceptionCode.ALREADY_EXIST_ROOM;
-import static com.cone.cone.domain.user.code.MenteeExceptionCode.INVALID_REQUEST_FIND_MENTEE;
-import static com.cone.cone.domain.user.code.MentorExceptionCode.INVALID_REQUEST_FIND_MENTOR;
 
 @Service
 @RequiredArgsConstructor
