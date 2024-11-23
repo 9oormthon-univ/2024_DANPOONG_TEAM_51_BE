@@ -1,17 +1,34 @@
 package com.cone.cone.domain.user.dto.response;
 
-import com.cone.cone.domain.user.entity.*;
-import java.util.*;
+import com.cone.cone.domain.user.entity.Mentor;
+import com.cone.cone.domain.user.entity.MentorStatus;
+import com.cone.cone.domain.user.entity.Role;
+
+import java.util.List;
+
 
 public record MentorResponse (
-        long mentorId,
-        MentorStatus mentorStatus,
-        String profileImgUrl,
+        Long id,
         String name,
-        List<String> keywords
+        String profileImgUrl,
+        Role role,
+        String resume,
+        String introduction,
+        List<String> keywords,
+        MentorStatus status,
+        String rejectReason
 ){
     public static MentorResponse from(Mentor mentor) {
-        return new MentorResponse(mentor.getId(), mentor.getMentorStatus(),
-                mentor.getProfileImgUrl(), mentor.getUsername(), mentor.getKeywords());
+        return new MentorResponse(
+                mentor.getId(),
+                mentor.getName(),
+                mentor.getProfileImgUrl(),
+                mentor.getUser().getRole(),
+                mentor.getResume(),
+                mentor.getIntroduction(),
+                mentor.getKeywords(),
+                mentor.getStatus(),
+                mentor.getRejectReason()
+        );
     }
 }
