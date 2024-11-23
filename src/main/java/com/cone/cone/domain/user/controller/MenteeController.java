@@ -2,7 +2,7 @@ package com.cone.cone.domain.user.controller;
 
 import com.cone.cone.domain.mentorings.dto.response.MentoringForMenteeResponse;
 import com.cone.cone.domain.mentorings.service.MentoringService;
-import com.cone.cone.domain.room.dto.RoomResponse;
+import com.cone.cone.domain.room.dto.RoomForMenteeResponse;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.domain.user.dto.response.MenteeResponse;
 import com.cone.cone.domain.user.service.MenteeService;
@@ -36,8 +36,8 @@ public class MenteeController implements MenteeApi {
     @SessionAuth
     @SessionRole(roles = MENTEE)
     @GetMapping("/me/rooms")
-    public ResponseEntity<ResponseTemplate<List<RoomResponse>>> getRoomsById(@SessionId Long id) {
-        final List<RoomResponse> rooms = roomService.getRoomsByMenteeId(id);
+    public ResponseEntity<ResponseTemplate<List<RoomForMenteeResponse>>> getRoomsById(@SessionId Long id) {
+        final List<RoomForMenteeResponse> rooms = roomService.getRoomsByMenteeId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
     }
 
