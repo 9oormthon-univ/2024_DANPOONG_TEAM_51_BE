@@ -22,14 +22,9 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     open-in-view: false
 
-#server:
-#  port: 443
-#  ssl:
-#    key-store-type: ${KEY_STORE_TYPE}
-#    key-store: ${KEY_STORE_PATH}
-#    key-store-password: ${SSL_PASSWORD}
-#  servlet:
-#    session:
-#      cookie:
-#        same-site: None
-#        secure: true
+server:
+  servlet:
+    session:
+      cookie:
+        same-site: lax
+        secure: false
