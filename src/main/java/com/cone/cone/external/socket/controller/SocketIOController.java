@@ -13,13 +13,15 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 
+import javax.lang.model.type.NullType;
+
 import static com.cone.cone.external.socket.constant.SocketIOEvent.*;
 
 @Component
 @Slf4j
 public class SocketIOController {
-   private final ChatFacade chatFacade;
    private final SocketService socketService;
+   private final ChatFacade chatFacade;
 
    public SocketIOController(SocketIOServer server, ChatFacade chatFacade, SocketService socketService) {
       this.chatFacade = chatFacade;
@@ -28,6 +30,7 @@ public class SocketIOController {
       server.addConnectListener(onConnected());
       server.addDisconnectListener(onDisconnected());
       server.addEventListener(MESSAGE, SocketMessage.class, onMessage());
+      server.addEventListener(PRE_OFFER, NullType.class, onPreOffer());
       server.addEventListener(OFFER, SignalingData.class, onOffer());
       server.addEventListener(ANSWER, SignalingData.class, onAnswer());
       server.addEventListener(CANDIDATE, SignalingData.class, onCandidate());
@@ -38,6 +41,14 @@ public class SocketIOController {
          log.info("Event[{}] from Socket Id[{}] - Sender[{}]: {}", MESSAGE, client.getSessionId(), data.senderId(), data.content());
          String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
          chatFacade.broadcastMessage(client, Long.parseLong(roomId), data);
+      };
+   }
+
+   private DataListener<NullType> onPreOffer() {
+      return (client, data, ack) -> {
+         log.info("Event[{}] from Socket Id[{}] - {}", PRE_OFFER, client.getSessionId(), data.toString());
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         socketService.sendData(client, Long.parseLong(roomId), PRE_OFFER, data);
       };
    }
 
@@ -76,9 +87,9 @@ public class SocketIOController {
    }
 
    private DisconnectListener onDisconnected() {
-      return client -> {
-         String room = client.getHandshakeData().getSingleUrlParam("roomId");
-         client.leaveRoom(room);
+      return (client) -> {
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         client.leaveRoom(roomId);
          log.info("Socket ID[{}] - Disconnected to chat module through", client.getSessionId());
       };
    }
