@@ -47,7 +47,7 @@ public class MentorController implements MentorApi{
     @SessionAuth
     @GetMapping
     public ResponseEntity<ResponseTemplate<List<MentorResponse>>> getMentors() {
-        val response = mentorService.getMentors();
+        val response = mentorService.getApprovedMentors();
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTORS, response));
     }
 

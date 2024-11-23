@@ -5,6 +5,5 @@ import java.util.*;
 
 public interface MentorService {
     MentorResponse getMentorProfile(Long mentorId);
-
-    List<MentorResponse> getMentors();
+    List<MentorResponse> getApprovedMentors();
 }

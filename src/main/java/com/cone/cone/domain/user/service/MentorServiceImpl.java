@@ -2,6 +2,7 @@ package com.cone.cone.domain.user.service;
 
 import com.cone.cone.domain.user.dto.response.MentorResponse;
 import com.cone.cone.domain.user.entity.Mentor;
+import com.cone.cone.domain.user.entity.MentorStatus;
 import com.cone.cone.domain.user.repository.MentorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,8 +21,8 @@ public class MentorServiceImpl implements MentorService{
         return MentorResponse.from(mentor);
     }
 
-    public List<MentorResponse> getMentors() {
-        List<Mentor> mentors = mentorRepository.findApprovedMentors();
+    public List<MentorResponse> getApprovedMentors() {
+        List<Mentor> mentors = mentorRepository.findAllByStatusLike(MentorStatus.APPROVED);
         return mentors.stream()
                 .map(MentorResponse::from)
                 .toList();
