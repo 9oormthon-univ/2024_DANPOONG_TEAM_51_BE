@@ -1,5 +1,6 @@
 package com.cone.cone.external.socket.controller;
 
+import com.cone.cone.domain.messages.service.MessageService;
 import com.cone.cone.external.socket.ChatFacade;
 import com.cone.cone.external.socket.SocketService;
 import com.cone.cone.external.socket.dto.SignalingData;
@@ -13,21 +14,27 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
 
+import javax.lang.model.type.NullType;
+
+import static com.cone.cone.domain.messages.entity.type.MessageType.TEXT;
 import static com.cone.cone.external.socket.constant.SocketIOEvent.*;
 
 @Component
 @Slf4j
 public class SocketIOController {
-   private final ChatFacade chatFacade;
    private final SocketService socketService;
+   private final ChatFacade chatFacade;
+   private final MessageService messageService;
 
-   public SocketIOController(SocketIOServer server, ChatFacade chatFacade, SocketService socketService) {
+   public SocketIOController(SocketIOServer server, ChatFacade chatFacade, SocketService socketService, MessageService messageService) {
       this.chatFacade = chatFacade;
       this.socketService = socketService;
+      this.messageService = messageService;
 
       server.addConnectListener(onConnected());
       server.addDisconnectListener(onDisconnected());
       server.addEventListener(MESSAGE, SocketMessage.class, onMessage());
+      server.addEventListener(PRE_OFFER, SignalingData.class, onPreOffer());
       server.addEventListener(OFFER, SignalingData.class, onOffer());
       server.addEventListener(ANSWER, SignalingData.class, onAnswer());
       server.addEventListener(CANDIDATE, SignalingData.class, onCandidate());
@@ -37,7 +44,18 @@ public class SocketIOController {
       return (client, data, ack) -> {
          log.info("Event[{}] from Socket Id[{}] - Sender[{}]: {}", MESSAGE, client.getSessionId(), data.senderId(), data.content());
          String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
-         chatFacade.broadcastMessage(client, Long.parseLong(roomId), data);
+         // 메시지 저장
+         messageService.createMessage(Long.valueOf(roomId), data.senderId(), data.content(), TEXT);
+         // 메시지 생성 날짜 추가
+         chatFacade.broadcastMessage(client, Long.parseLong(roomId), SocketMessage.of(data.senderId(), data.content()));
+      };
+   }
+
+   private DataListener<SignalingData> onPreOffer() {
+      return (client, data, ack) -> {
+         log.info("Event[{}] from Socket Id[{}] - {}", PRE_OFFER, client.getSessionId(), data.toString());
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         socketService.sendData(client, Long.parseLong(roomId), PRE_OFFER, data);
       };
    }
 
@@ -76,9 +94,9 @@ public class SocketIOController {
    }
 
    private DisconnectListener onDisconnected() {
-      return client -> {
-         String room = client.getHandshakeData().getSingleUrlParam("roomId");
-         client.leaveRoom(room);
+      return (client) -> {
+         String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
+         client.leaveRoom(roomId);
          log.info("Socket ID[{}] - Disconnected to chat module through", client.getSessionId());
       };
    }

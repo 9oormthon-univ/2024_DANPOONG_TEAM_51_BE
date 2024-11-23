@@ -7,6 +7,9 @@ import jakarta.persistence.Table;
 import lombok.*;
 import org.hibernate.annotations.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -34,15 +37,30 @@ public class Room {
     @ColumnDefault("false")
     private Boolean isStable;
 
+    @Column(nullable = false)
+    private LocalDateTime mentorLastViewedAt;
+
+    @Column(nullable = false)
+    private LocalDateTime menteeLastViewedAt;
+
     @Builder
     private Room(Mentor mentor, Mentee mentee) {
         this.mentor = mentor;
         this.mentee = mentee;
         this.isStable = false;
+        this.mentorLastViewedAt = LocalDateTime.now();
+        this.menteeLastViewedAt = LocalDateTime.now();
     }
 
-    public boolean markAsStable() {
+    public void markAsStable() {
         this.isStable = true;
-        return true;
+    }
+
+    public void updateMentorLastViewedAt(LocalDateTime mentorLastViewedAt) {
+        this.mentorLastViewedAt = mentorLastViewedAt;
+    }
+
+    public void updateMenteeLastViewedAt(LocalDateTime menteeLastViewedAt) {
+        this.menteeLastViewedAt = menteeLastViewedAt;
     }
 }

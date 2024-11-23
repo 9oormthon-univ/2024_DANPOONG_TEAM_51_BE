@@ -9,6 +9,5 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 
 public interface RoomApi {
-    ResponseEntity<ResponseTemplate<Room>> createRoom(RoomCreateRequest request);
     ResponseEntity<ResponseTemplate<List<Message>>> getMessagesById(Long id);
 }
