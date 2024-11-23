@@ -26,7 +26,7 @@ public class JwtServiceImpl implements JwtService {
     private final JwtTokenValidator jwtTokenValidator;
 
     @Override
-    public IssueTokenResponse issueToken(final String userId, final List<String> roles) {
+    public IssueTokenResponse issueToken(final Long userId, final List<String> roles) {
         String accessToken = jwtTokenProvider.createAccessToken(userId, roles);
 
         boolean isServiceUser =

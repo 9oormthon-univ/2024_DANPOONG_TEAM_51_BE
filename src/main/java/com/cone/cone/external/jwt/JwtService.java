@@ -5,7 +5,7 @@ import jakarta.servlet.http.*;
 import java.util.*;
 
 public interface JwtService {
-    IssueTokenResponse issueToken(String memberId, List<String> roles);
+    IssueTokenResponse issueToken(Long memberId, List<String> roles);
 
     String extractAccessToken(HttpServletRequest request);
 

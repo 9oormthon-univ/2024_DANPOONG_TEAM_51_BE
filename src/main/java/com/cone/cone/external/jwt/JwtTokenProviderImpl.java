@@ -19,14 +19,14 @@ public class JwtTokenProviderImpl implements JwtTokenProvider {
   private Long accessTokenExpirationPeriod;
 
   @Override
-  public String createAccessToken(final String memberId, final List<String> roles) {
+  public String createAccessToken(Long userId, List<String> roles) {
     Date now = new Date();
 
     return JWT.create()
-        .withSubject(ACCESS_TOKEN_SUBJECT)
-        .withClaim(ID_CLAIM, memberId)
-        .withClaim(ROLE_CLAIM, roles)
-        .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod))
-        .sign(Algorithm.HMAC512(secretKey));
+            .withSubject(ACCESS_TOKEN_SUBJECT)
+            .withClaim(ID_CLAIM, userId)
+            .withClaim(ROLE_CLAIM, roles)
+            .withExpiresAt(new Date(now.getTime() + accessTokenExpirationPeriod))
+            .sign(Algorithm.HMAC512(secretKey));
   }
 }
