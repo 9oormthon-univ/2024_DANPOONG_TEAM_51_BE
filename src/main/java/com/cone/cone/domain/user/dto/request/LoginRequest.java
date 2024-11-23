@@ -5,6 +5,6 @@ import jakarta.validation.constraints.*;
 
 public record LoginRequest(
         @NotNull PlatformType platformType,
-        @NotNull String code
+        @NotNull @Size(max = 150) String code
 ) {
 }
