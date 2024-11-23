@@ -19,7 +19,7 @@ public record MentoringForMentorResponse(
         return new MentoringForMentorResponse(
                 id,
                 mentee.getId(),
-                mentee.getUsername(),
+                mentee.getName(),
                 mentee.getProfileImgUrl(),
                 mentee.getConcernSummary(),
                 mentee.getConcernDetail(),

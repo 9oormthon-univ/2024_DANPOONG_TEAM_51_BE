@@ -45,7 +45,7 @@ public class AuthServiceImpl implements AuthService {
                     .role(GUEST)
                     .platformType(request.platformType())
                     .platformId(userInfo.id())
-                    .username(userInfo.nickname())
+                    .name(userInfo.nickname())
                     .profileImgUrl(userInfo.profileUrl())
                     .build();
             userRepository.save(newUser);

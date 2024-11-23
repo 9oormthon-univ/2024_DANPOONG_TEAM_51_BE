@@ -13,7 +13,7 @@ public record MenteeProfileResponse(
         String mentorPreference
 ) {
     public static MenteeProfileResponse from(Mentee mentee) {
-        return new MenteeProfileResponse(mentee.getId(), mentee.getProfileImgUrl(), mentee.getUsername(),
+        return new MenteeProfileResponse(mentee.getId(), mentee.getProfileImgUrl(), mentee.getName(),
                 mentee.getKeywords(), mentee.getConcernSummary(), mentee.getConcernDetail(), mentee.getMentorPreference());
     }
 }
