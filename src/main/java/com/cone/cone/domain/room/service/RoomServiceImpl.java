@@ -1,5 +1,6 @@
 package com.cone.cone.domain.room.service;
 
+import com.cone.cone.domain.messages.entity.Message;
 import com.cone.cone.domain.room.dto.RoomCreateRequest;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;

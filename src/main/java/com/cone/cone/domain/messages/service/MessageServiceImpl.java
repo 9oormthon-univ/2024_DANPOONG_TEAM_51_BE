@@ -1,6 +1,7 @@
 package com.cone.cone.domain.messages.service;
 
 import com.cone.cone.domain.messages.entity.Message;
+import com.cone.cone.domain.messages.entity.type.MessageType;
 import com.cone.cone.domain.messages.repository.MessageRepository;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
@@ -21,7 +22,7 @@ public class MessageServiceImpl implements MessageService {
     private final MessageRepository messageRepository;
 
     @Transactional
-    public Message createMessage(Long roomId, Long senderId, String content) {
+    public Message createMessage(Long roomId, Long senderId, String content, MessageType type) {
         final Room room = roomRepository.findByIdOrThrow(roomId);
 
         final User sender = userRepository.findByIdOrThrow(senderId);
@@ -30,6 +31,7 @@ public class MessageServiceImpl implements MessageService {
                 .room(room)
                 .sender(sender)
                 .content(content)
+                .type(type)
                 .build();
 
         return messageRepository.save(newMessage);

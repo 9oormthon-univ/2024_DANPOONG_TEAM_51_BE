@@ -1,5 +1,6 @@
 package com.cone.cone.domain.messages.entity;
 
+import com.cone.cone.domain.messages.entity.type.MessageType;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.user.entity.User;
 import com.cone.cone.global.base.BaseTime;
@@ -10,6 +11,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import static jakarta.persistence.EnumType.STRING;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -32,11 +34,16 @@ public class Message extends BaseTime {
     @Column(nullable = false, updatable = false)
     private String content;
 
+    @Column(nullable = false, updatable = false)
+    @Enumerated(STRING)
+    private MessageType type;
+
     @Builder
-    private Message(Room room, User sender, String content) {
+    private Message(Room room, User sender, String content, MessageType type) {
         super(LocalDateTime.now(), LocalDateTime.now());
         this.room = room;
         this.sender = sender;
         this.content = content;
+        this.type = type;
     }
 }
