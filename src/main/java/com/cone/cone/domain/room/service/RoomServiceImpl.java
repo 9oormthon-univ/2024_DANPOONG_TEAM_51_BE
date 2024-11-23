@@ -1,6 +1,7 @@
 package com.cone.cone.domain.room.service;
 
-import com.cone.cone.domain.room.dto.RoomResponse;
+import com.cone.cone.domain.room.dto.RoomForMenteeResponse;
+import com.cone.cone.domain.room.dto.RoomForMentorResponse;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
 import com.cone.cone.domain.user.entity.Mentee;
@@ -41,15 +42,15 @@ public class RoomServiceImpl implements RoomService{
         return roomRepository.save(newRoom);
     }
 
-    public List<RoomResponse> getRoomsByMentorId(final Long mentorId) {
+    public List<RoomForMentorResponse> getRoomsByMentorId(final Long mentorId) {
         final Mentor mentor = mentorRepository.findByIdOrThrow(mentorId);
         val rooms = roomRepository.findAllByMentor(mentor);
-        return rooms.stream().map(RoomResponse::from).toList();
+        return rooms.stream().map(RoomForMentorResponse::from).toList();
     }
 
-    public List<RoomResponse> getRoomsByMenteeId(final Long menteeId) {
+    public List<RoomForMenteeResponse> getRoomsByMenteeId(final Long menteeId) {
         final Mentee mentee = menteeRepository.findByIdOrThrow(menteeId);
         val rooms = roomRepository.findAllByMentee(mentee);
-        return rooms.stream().map(RoomResponse::from).toList();
+        return rooms.stream().map(RoomForMenteeResponse::from).toList();
     }
 }

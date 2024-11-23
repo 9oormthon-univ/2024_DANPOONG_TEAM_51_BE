@@ -2,7 +2,7 @@ package com.cone.cone.domain.user.controller;
 
 import com.cone.cone.domain.mentorings.dto.response.MentoringForMentorResponse;
 import com.cone.cone.domain.mentorings.service.MentoringService;
-import com.cone.cone.domain.room.dto.RoomResponse;
+import com.cone.cone.domain.room.dto.RoomForMentorResponse;
 import com.cone.cone.domain.room.service.RoomService;
 import com.cone.cone.domain.user.dto.response.MentorResponse;
 import com.cone.cone.domain.user.service.MentorService;
@@ -32,8 +32,8 @@ public class MentorController implements MentorApi{
 
     @SessionAuth
     @GetMapping("/me/rooms")
-    public ResponseEntity<ResponseTemplate<List<RoomResponse>>> getRoomsById(final @SessionId Long id) {
-        final List<RoomResponse> rooms = roomService.getRoomsByMentorId(id);
+    public ResponseEntity<ResponseTemplate<List<RoomForMentorResponse>>> getRoomsById(final @SessionId Long id) {
+        final List<RoomForMentorResponse> rooms = roomService.getRoomsByMentorId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
     }
 
