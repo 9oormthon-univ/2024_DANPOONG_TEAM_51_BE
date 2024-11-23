@@ -30,14 +30,14 @@ public class Mentor {
     private String keywords;
 
     @Column(nullable = false) @Enumerated(value = EnumType.STRING)
-    private AuditStatus auditStatus;
+    private MentorStatus mentorStatus;
 
     private String rejectReason;
 
     @Builder
     private Mentor(User user) {
         this.user = user;
-        this.auditStatus = AuditStatus.INREVIEW;
+        this.mentorStatus = MentorStatus.INREVIEW;
     }
 
     public String getUsername() {
