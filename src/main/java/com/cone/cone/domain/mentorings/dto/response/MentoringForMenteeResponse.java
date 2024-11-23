@@ -10,8 +10,8 @@ public record MentoringForMenteeResponse(
         String mentorName,
         List<String> keywords
 ) {
-    public static MentoringForMenteeResponse of(long mentoringId, Mentor mentor) {
+    public static MentoringForMenteeResponse of(Long mentoringId, Mentor mentor) {
         return new MentoringForMenteeResponse(mentoringId, mentor.getId(), mentor.getProfileImgUrl(),
-                mentor.getUsername(), mentor.getKeywords());
+                mentor.getName(), mentor.getKeywords());
     }
 }

@@ -1,10 +1,14 @@
 package com.cone.cone.domain.user.entity;
 
 import jakarta.persistence.*;
-import java.util.*;
-import java.util.stream.Collectors;
+import lombok.AccessLevel;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import lombok.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.cone.cone.global.constant.DomainConstant.COMMA;
 
@@ -30,18 +34,18 @@ public class Mentor {
     private String keywords;
 
     @Column(nullable = false) @Enumerated(value = EnumType.STRING)
-    private MentorStatus mentorStatus;
+    private MentorStatus status;
 
     private String rejectReason;
 
     @Builder
     private Mentor(User user) {
         this.user = user;
-        this.mentorStatus = MentorStatus.INREVIEW;
+        this.status = MentorStatus.INREVIEW;
     }
 
-    public String getUsername() {
-        return user.getUsername();
+    public String getName() {
+        return user.getName();
     }
 
     public String getProfileImgUrl() {

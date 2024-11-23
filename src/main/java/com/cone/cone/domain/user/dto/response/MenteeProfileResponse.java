@@ -4,7 +4,7 @@ import com.cone.cone.domain.user.entity.*;
 import java.util.*;
 
 public record MenteeProfileResponse(
-        long menteeId,
+        Long menteeId,
         String profileImgUrl,
         String name,
         List<String> keyword,

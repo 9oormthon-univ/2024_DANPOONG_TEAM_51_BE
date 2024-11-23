@@ -4,7 +4,7 @@ import com.cone.cone.domain.user.entity.*;
 import java.util.*;
 
 public record MentorProfileResponse(
-        long mentorId,
+        Long mentorId,
         MentorStatus mentorStatus,
         String profileImgUrl,
         String name,
@@ -13,7 +13,7 @@ public record MentorProfileResponse(
         String introduction
 ) {
     public static MentorProfileResponse from(Mentor mentor) {
-        return new MentorProfileResponse(mentor.getId(), mentor.getMentorStatus(), mentor.getProfileImgUrl(),
-                mentor.getUsername(), mentor.getKeywords(), mentor.getResume(), mentor.getIntroduction());
+        return new MentorProfileResponse(mentor.getId(), mentor.getStatus(), mentor.getProfileImgUrl(),
+                mentor.getName(), mentor.getKeywords(), mentor.getResume(), mentor.getIntroduction());
     }
 }
