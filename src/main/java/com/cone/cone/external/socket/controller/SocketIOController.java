@@ -6,17 +6,15 @@ import com.cone.cone.external.socket.SocketService;
 import com.cone.cone.external.socket.dto.SignalingData;
 import com.cone.cone.external.socket.dto.SocketMessage;
 import com.corundumstudio.socketio.SocketIOClient;
+import com.corundumstudio.socketio.SocketIOServer;
+import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
+import com.corundumstudio.socketio.listener.DisconnectListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import com.corundumstudio.socketio.SocketIOServer;
-import com.corundumstudio.socketio.listener.ConnectListener;
-import com.corundumstudio.socketio.listener.DisconnectListener;
-
-import javax.lang.model.type.NullType;
-
 import static com.cone.cone.domain.messages.entity.type.MessageType.TEXT;
+import static com.cone.cone.domain.user.constant.UserConstant.SYSTEM_ID;
 import static com.cone.cone.external.socket.constant.SocketIOEvent.*;
 
 @Component
@@ -97,6 +95,7 @@ public class SocketIOController {
       return (client) -> {
          String roomId = client.getHandshakeData().getSingleUrlParam("roomId");
          client.leaveRoom(roomId);
+         socketService.sendData(client, Long.parseLong(roomId), DISCONNECT, SocketMessage.of(SYSTEM_ID, "상대방이 퇴장했습니다"));
          log.info("Socket ID[{}] - Disconnected to chat module through", client.getSessionId());
       };
    }
