@@ -38,7 +38,7 @@ public class MentorController implements MentorApi{
 
     @SessionAuth
     @GetMapping("/{mentorId}")
-    public ResponseEntity<ResponseTemplate<MentorProfileResponse>> getMentorProfile(final @PathVariable("mentorId") Long mentorId) {
+    public ResponseEntity<ResponseTemplate<MentorResponse>> getMentorProfile(final @PathVariable("mentorId") Long mentorId) {
         val response = mentorService.getMentorProfile(mentorId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTOR_PROFILE, response));
     }

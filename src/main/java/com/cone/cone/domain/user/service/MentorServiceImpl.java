@@ -1,13 +1,13 @@
 package com.cone.cone.domain.user.service;
 
-import com.cone.cone.domain.user.dto.response.*;
-import com.cone.cone.domain.user.entity.*;
-import com.cone.cone.domain.user.repository.*;
-import java.util.*;
-import java.util.stream.*;
-import lombok.*;
-import org.springframework.stereotype.*;
-import org.springframework.transaction.annotation.*;
+import com.cone.cone.domain.user.dto.response.MentorResponse;
+import com.cone.cone.domain.user.entity.Mentor;
+import com.cone.cone.domain.user.repository.MentorRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -15,9 +15,9 @@ import org.springframework.transaction.annotation.*;
 public class MentorServiceImpl implements MentorService{
     private final MentorRepository mentorRepository;
 
-    public MentorProfileResponse getMentorProfile(final Long mentorId) {
+    public MentorResponse getMentorProfile(final Long mentorId) {
         Mentor mentor = mentorRepository.findByIdOrThrow(mentorId);
-        return MentorProfileResponse.from(mentor);
+        return MentorResponse.from(mentor);
     }
 
     public List<MentorResponse> getMentors() {

@@ -42,7 +42,7 @@ public class MenteeController implements MenteeApi {
 
     @GetMapping("/{menteeId}")
     public ResponseEntity<ResponseTemplate<MenteeProfileResponse>> getMenteeProfile(@PathVariable("menteeId") Long menteeId) {
-        val response = menteeService.getMentorProfile(menteeId);
+        val response = menteeService.getMenteeProfile(menteeId);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_MENTEE_PROFILE, response));
     }
 

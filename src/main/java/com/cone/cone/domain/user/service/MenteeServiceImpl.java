@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.*;
 public class MenteeServiceImpl implements MenteeService{
     private final MenteeRepository menteeRepository;
 
-    public MenteeProfileResponse getMentorProfile(final Long menteeId) {
+    public MenteeProfileResponse getMenteeProfile(final Long menteeId) {
         val mentee = menteeRepository.findByIdOrThrow(menteeId);
         return MenteeProfileResponse.from(mentee);
     }
