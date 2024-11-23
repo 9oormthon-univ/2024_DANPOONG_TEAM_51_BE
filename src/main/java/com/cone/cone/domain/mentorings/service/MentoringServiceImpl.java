@@ -10,6 +10,8 @@ import com.cone.cone.domain.room.repository.*;
 import com.cone.cone.domain.user.entity.*;
 import com.cone.cone.domain.user.repository.*;
 import com.cone.cone.external.aws.*;
+
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import com.cone.cone.global.exception.CustomException;
@@ -18,8 +20,7 @@ import org.springframework.stereotype.*;
 import org.springframework.transaction.annotation.*;
 
 import static com.cone.cone.domain.mentorings.code.MentoringExceptionCode.INVALID_REQUEST_USER;
-import static com.cone.cone.domain.messages.constant.MessageConstant.MENTORING_APPROVED;
-import static com.cone.cone.domain.messages.constant.MessageConstant.ROOM_STABLED;
+import static com.cone.cone.domain.messages.constant.MessageConstant.*;
 import static com.cone.cone.domain.messages.entity.type.MessageType.NOTICE;
 import static com.cone.cone.domain.user.constant.UserConstant.SYSTEM_ID;
 
@@ -81,6 +82,16 @@ public class MentoringServiceImpl implements MentoringService {
         }
 
         mentoring.updateTime(request.mentoringTime());
+
+        // 멘토링 시간 예약 메시지 전송
+        messageService.createMessage(
+                mentoring.getRoom().getId(),
+                SYSTEM_ID,
+                MENTORING_TIME_BOOKED + request.mentoringTime().format(DateTimeFormatter.ofPattern("MM월 dd일(E) a HH:mm")),
+                NOTICE
+        );
+        // TODO: socket 호출
+
         mentoringRepository.save(mentoring);
         return MentoringTimeResponse.of(mentoring.getMentoringTime());
     }
@@ -97,10 +108,12 @@ public class MentoringServiceImpl implements MentoringService {
             mentoring.getRoom().markAsStable();
             // 채팅방 생성 메시지 전송
             messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, ROOM_STABLED, NOTICE);
+            // TODO: socket 호출
         }
 
         // 멘토링 수락 메시지 전송
         messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, MENTORING_APPROVED, NOTICE);
+        // TODO: socket 호출
 
         mentoring.approve();
         mentoringRepository.save(mentoring);
