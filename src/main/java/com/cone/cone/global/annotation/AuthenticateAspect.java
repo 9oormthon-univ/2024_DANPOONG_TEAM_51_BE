@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import lombok.RequiredArgsConstructor;
 
 import static com.cone.cone.global.code.CommonExceptionCode.AUTHENTICATION_REQUIRED;
+import static com.cone.cone.global.code.CommonExceptionCode.TRY_LOGIN_AGAIN;
 import static com.cone.cone.global.constant.SessionConstant.ID;
 
 @Aspect
@@ -23,7 +24,7 @@ public class AuthenticateAspect {
     public Object advice(ProceedingJoinPoint joinPoint) throws Throwable {
         HttpSession session = httpServletRequest.getSession(false);
         if (session == null) {
-            throw new CustomException(AUTHENTICATION_REQUIRED);
+            throw new CustomException(TRY_LOGIN_AGAIN);
         }
 
         Long id = (Long) session.getAttribute(ID);

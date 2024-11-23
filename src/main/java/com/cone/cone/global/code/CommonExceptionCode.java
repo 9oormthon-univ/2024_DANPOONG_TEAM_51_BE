@@ -14,6 +14,7 @@ public enum CommonExceptionCode implements ExceptionCode {
 
     // 401 Unauthorized
     AUTHENTICATION_REQUIRED(HttpStatus.UNAUTHORIZED, "인증이 필요합니다"),
+    TRY_LOGIN_AGAIN(HttpStatus.UNAUTHORIZED, "다시 로그인을 해주세요"),
 
     // 403 Forbidden
     INVALID_AUTHORITY(HttpStatus.FORBIDDEN, "권한이 없습니다"),
