@@ -106,7 +106,7 @@ public class MentoringServiceImpl implements MentoringService {
             throw new CustomException(INVALID_MENTORING_USER);
         }
 
-        if (!mentoring.getRoom().getIsStable()) {
+        if (!mentoring.getRoom().isStable()) {
             mentoring.getRoom().markAsStable();
             // 채팅방 생성 메시지 생성 및 전송
             messageService.createMessage(mentoring.getRoom().getId(), SYSTEM_ID, ROOM_STABLED, NOTICE);

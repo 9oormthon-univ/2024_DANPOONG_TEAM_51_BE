@@ -2,14 +2,15 @@ package com.cone.cone.domain.user.controller;
 
 import com.cone.cone.domain.mentorings.dto.response.MentoringForMentorResponse;
 import com.cone.cone.domain.mentorings.service.MentoringService;
-import com.cone.cone.domain.room.entity.Room;
+import com.cone.cone.domain.room.dto.RoomResponse;
 import com.cone.cone.domain.room.service.RoomService;
+import com.cone.cone.domain.user.dto.response.MentorResponse;
+import com.cone.cone.domain.user.service.MentorService;
 import com.cone.cone.global.annotation.SessionAuth;
 import com.cone.cone.global.annotation.SessionId;
-import com.cone.cone.domain.user.dto.response.*;
-import com.cone.cone.domain.user.service.*;
 import com.cone.cone.global.response.ResponseTemplate;
-import lombok.*;
+import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,8 +32,8 @@ public class MentorController implements MentorApi{
 
     @SessionAuth
     @GetMapping("/me/rooms")
-    public ResponseEntity<ResponseTemplate<List<Room>>> getRoomsById(final @SessionId Long id) {
-        final List<Room> rooms = roomService.getRoomsByMentorId(id);
+    public ResponseEntity<ResponseTemplate<List<RoomResponse>>> getRoomsById(final @SessionId Long id) {
+        final List<RoomResponse> rooms = roomService.getRoomsByMentorId(id);
         return ResponseEntity.ok(ResponseTemplate.success(SUCCESS_GET_ROOMS, rooms));
     }
 

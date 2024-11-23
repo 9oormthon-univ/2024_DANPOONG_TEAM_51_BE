@@ -1,5 +1,6 @@
 package com.cone.cone.domain.room.service;
 
+import com.cone.cone.domain.room.dto.RoomResponse;
 import com.cone.cone.domain.room.entity.Room;
 import com.cone.cone.domain.room.repository.RoomRepository;
 import com.cone.cone.domain.user.entity.Mentee;
@@ -8,6 +9,7 @@ import com.cone.cone.domain.user.repository.MenteeRepository;
 import com.cone.cone.domain.user.repository.MentorRepository;
 import com.cone.cone.global.exception.CustomException;
 import lombok.RequiredArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,15 +41,15 @@ public class RoomServiceImpl implements RoomService{
         return roomRepository.save(newRoom);
     }
 
-    public List<Room> getRoomsByMentorId(final Long mentorId) {
+    public List<RoomResponse> getRoomsByMentorId(final Long mentorId) {
         final Mentor mentor = mentorRepository.findByIdOrThrow(mentorId);
-
-        return roomRepository.findAllByMentor(mentor);
+        val rooms = roomRepository.findAllByMentor(mentor);
+        return rooms.stream().map(RoomResponse::from).toList();
     }
 
-    public List<Room> getRoomsByMenteeId(final Long menteeId) {
+    public List<RoomResponse> getRoomsByMenteeId(final Long menteeId) {
         final Mentee mentee = menteeRepository.findByIdOrThrow(menteeId);
-
-        return roomRepository.findAllByMentee(mentee);
+        val rooms = roomRepository.findAllByMentee(mentee);
+        return rooms.stream().map(RoomResponse::from).toList();
     }
 }
