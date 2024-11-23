@@ -8,10 +8,10 @@ import org.springframework.http.*;
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public enum MentoringSuccessCode implements SuccessCode {
     SUCCESS_REQUEST_MENTORING(HttpStatus.OK, "멘토링 신청에 성공했습니다"),
-    SUCCESS_BOOKING_MENTORING_TIME(HttpStatus.OK, "멘토링 시간 변경에 성공했습니다"),
+    SUCCESS_UPDATE_MENTORING_TIME(HttpStatus.OK, "멘토링 시간 예약에 성공했습니다"),
     SUCCESS_APPROVE_MENTORING(HttpStatus.OK, "멘토링 승인에 성공했습니다"),
     SUCCESS_REJECT_MENTORING(HttpStatus.OK, "멘토링 거절에 성공했습니다"),
-    SUCCESS_GET_PRESIGNED_URL_FOR_MENTORING_RECORD(HttpStatus.OK, "멘토링 파일 업로드 url 조회에 성공했습니다"),
+    SUCCESS_GET_PRE_SIGNED_URL_FOR_MENTORING_RECORD(HttpStatus.OK, "멘토링 파일 업로드 url 조회에 성공했습니다"),
     SUCCESS_CREATE_MENTORING_CONTENT(HttpStatus.OK, "멘토링 기록에 성공했습니다");
 
     private final HttpStatus status;

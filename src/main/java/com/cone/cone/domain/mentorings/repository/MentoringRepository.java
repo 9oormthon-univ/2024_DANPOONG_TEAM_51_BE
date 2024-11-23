@@ -1,21 +1,20 @@
 package com.cone.cone.domain.mentorings.repository;
 
-import static com.cone.cone.domain.mentorings.code.MentoringExceptionCode.INVALID_MENTORING_REQUEST;
-
-import com.cone.cone.domain.mentorings.entity.*;
-import com.cone.cone.global.exception.*;
-import java.util.*;
-
+import com.cone.cone.domain.mentorings.entity.Mentoring;
 import com.cone.cone.global.exception.CustomException;
-import org.springframework.data.jpa.repository.*;
-import org.springframework.data.repository.query.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import static com.cone.cone.domain.mentorings.code.MentoringExceptionCode.INVALID_REQUEST_FIND_MENTORING;
+import java.util.List;
+import java.util.Optional;
+
+import static com.cone.cone.domain.mentorings.code.MentoringExceptionCode.NOT_FOUND_MENTORING;
 
 public interface MentoringRepository extends JpaRepository<Mentoring, Long> {
 
     default Mentoring findByIdOrThrow(final Long id) {
-        return findById(id).orElseThrow(() -> new CustomException(INVALID_REQUEST_FIND_MENTORING));
+        return findById(id).orElseThrow(() -> new CustomException(NOT_FOUND_MENTORING));
     }
 
     @Query("select m from Mentoring m " +
@@ -40,7 +39,7 @@ public interface MentoringRepository extends JpaRepository<Mentoring, Long> {
 
     default Mentoring findMentoringByIdAndMentorIdOrThrow(Long mentoringId, Long mentorId){
         return findMentoringByIdAndMentorId(mentoringId, mentorId).orElseThrow(
-                () -> new CustomException(INVALID_MENTORING_REQUEST)
+                () -> new CustomException(NOT_FOUND_MENTORING)
         );
     }
 }
