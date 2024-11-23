@@ -5,7 +5,7 @@ import java.util.*;
 
 public record MentorProfileResponse(
         long mentorId,
-        AuditStatus auditStatus,
+        MentorStatus mentorStatus,
         String profileImgUrl,
         String name,
         List<String> keywords,
@@ -13,7 +13,7 @@ public record MentorProfileResponse(
         String introduction
 ) {
     public static MentorProfileResponse from(Mentor mentor) {
-        return new MentorProfileResponse(mentor.getId(), mentor.getAuditStatus(), mentor.getProfileImgUrl(),
+        return new MentorProfileResponse(mentor.getId(), mentor.getMentorStatus(), mentor.getProfileImgUrl(),
                 mentor.getUsername(), mentor.getKeywords(), mentor.getResume(), mentor.getIntroduction());
     }
 }

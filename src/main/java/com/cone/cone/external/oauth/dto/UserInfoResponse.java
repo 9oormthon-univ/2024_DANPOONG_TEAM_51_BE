@@ -1,9 +1,7 @@
 package com.cone.cone.external.oauth.dto;
 
-import jakarta.validation.constraints.NotNull;
-
 public record UserInfoResponse(
-        @NotNull String id,
+        String id,
         String nickname,
         String profileUrl
 ) {

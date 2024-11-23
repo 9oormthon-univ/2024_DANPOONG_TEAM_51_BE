@@ -4,7 +4,7 @@ import com.cone.cone.domain.user.entity.Mentee;
 
 import java.util.List;
 
-public record MentorMentoringResponse(
+public record MentoringForMentorResponse(
         long id,
         long menteeId,
         String menteeUsername,
@@ -15,8 +15,8 @@ public record MentorMentoringResponse(
         List<String> keywords
 
 ) {
-    public static MentorMentoringResponse of(long id, Mentee mentee) {
-        return new MentorMentoringResponse(
+    public static MentoringForMentorResponse of(long id, Mentee mentee) {
+        return new MentoringForMentorResponse(
                 id,
                 mentee.getId(),
                 mentee.getUsername(),

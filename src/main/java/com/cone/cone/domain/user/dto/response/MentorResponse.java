@@ -5,13 +5,13 @@ import java.util.*;
 
 public record MentorResponse (
         long mentorId,
-        AuditStatus auditStatus,
+        MentorStatus mentorStatus,
         String profileImgUrl,
         String name,
         List<String> keywords
 ){
     public static MentorResponse from(Mentor mentor) {
-        return new MentorResponse(mentor.getId(), mentor.getAuditStatus(),
+        return new MentorResponse(mentor.getId(), mentor.getMentorStatus(),
                 mentor.getProfileImgUrl(), mentor.getUsername(), mentor.getKeywords());
     }
 }
