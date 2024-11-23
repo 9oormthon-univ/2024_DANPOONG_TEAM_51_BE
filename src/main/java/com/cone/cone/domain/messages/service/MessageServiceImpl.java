@@ -26,11 +26,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Transactional
     public Message createMessage(Long roomId, Long senderId, String content) {
-        final Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_ROOM));
+        final Room room = roomRepository.findByIdOrThrow(roomId);
 
-        final User sender = userRepository.findById(senderId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_USER));
+        final User sender = userRepository.findByIdOrThrow(senderId);
 
         final Message newMessage = Message.builder()
                 .room(room)
@@ -42,8 +40,7 @@ public class MessageServiceImpl implements MessageService {
     }
 
     public List<Message> getMessagesByRoomId(Long roomId) {
-        final Room room = roomRepository.findById(roomId)
-                .orElseThrow(() -> new CustomException(NOT_FOUND_ROOM));
+        final Room room = roomRepository.findByIdOrThrow(roomId);
 
         return messageRepository.findAllByRoom(room);
     }
